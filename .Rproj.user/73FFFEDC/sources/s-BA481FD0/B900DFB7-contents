@@ -1,0 +1,14 @@
+Package: hotteR
+Type: Package
+Title: Hottest 100 Countdown Analysis Engine in R
+Version: 0.1.0
+Author: Trent Henderson
+Maintainer: Trent Henderson <trent.henderson1@outlook.com>
+Description: Automates extraction of @triplejplays data and produces Hottest 100 analysis.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr, 
+    ggplot2,
+    rtweet
