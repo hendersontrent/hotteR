@@ -1,5 +1,6 @@
 #'
 #' Function to produce a small analysis document for a given selection of song plays based on tweets
+#' This function should ideally take the dataframe output straight from hotteR::get_plays()
 #'
 #' @import dplyr
 #' @importFrom magrittr %>%

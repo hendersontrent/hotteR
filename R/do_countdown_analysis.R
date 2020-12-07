@@ -1,5 +1,6 @@
 #'
 #' Function to produce a small analysis document for a given year's Hottest 100 Countdown
+#' #' This function should ideally take the dataframe output straight from hotteR::get_countdowns()
 #'
 #' @import dplyr
 #' @importFrom magrittr %>%
