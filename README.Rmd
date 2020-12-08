@@ -46,7 +46,7 @@ do_plays_analysis(the_plays)
 
 ### theme_hotteR
 
-As well as data scraping and analysis functions, `hotteR` also provides a distinct and eye-catching colour palette that is called and used by default when the package is loaded.
+As well as data scraping and analysis functions, `hotteR` also provides a distinct and striking contrasting colour palette that is called and used by default when the package is loaded.
 
 ```{r message = FALSE}
 library(scales)
