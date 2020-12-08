@@ -2,12 +2,12 @@
 output: rmarkdown::github_document
 ---
 
+# hotteR <img src = "https://github.com/hendersontrent/hotteR/blob/main/pkg_logo.png.png" height = "200" width = "200" align = "right" />
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
 comment = NA, fig.width = 6, fig.height = 4, cache = FALSE)
 ```
-
-# hotteR
 
 Hottest 100 Countdown and Triple J Analysis in R.
 
