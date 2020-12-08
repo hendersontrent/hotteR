@@ -42,7 +42,7 @@ do_countdown_analysis <- function(data){
                   x = "Country",
                   y = "Number of songs") +
     ggplot2::coord_flip() +
-    ggplot2::theme(panel.grid.minor = element_blank())
+    hotteR::theme_hotteR(grids = TRUE)
 
   # Artist breakdown
 
@@ -55,12 +55,12 @@ do_countdown_analysis <- function(data){
     dplyr::summarise(counter = sum(counter)) %>%
     dplyr::ungroup() %>%
     ggplot2::ggplot(aes(x = reorder(indicator, counter), y = counter)) +
-    ggplot2::geom_bar(stat = "identity", fill = "#393F5F", alpha = 0.9) +
+    ggplot2::geom_bar(stat = "identity") +
     ggplot2::labs(title = "Artist breakdown",
                   x = "Artist",
                   y = "Number of songs") +
     ggplot2::coord_flip() +
-    ggplot2::theme(panel.grid.minor = element_blank())
+    hotteR::theme_hotteR(grids = TRUE)
 
   #--------------------- Merge into one plot and export ------------
 

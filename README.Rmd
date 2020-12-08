@@ -2,7 +2,7 @@
 output: rmarkdown::github_document
 ---
 
-# hotteR <img src = "https://github.com/hendersontrent/hotteR/blob/main/pkg_logo.png.png" height = "200" width = "200" align = "right" />
+# hotteR <img src="man/figures/logo.png" align="right" width="120" />
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
