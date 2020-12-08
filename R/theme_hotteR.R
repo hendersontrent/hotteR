@@ -13,7 +13,7 @@ hotteR_palette <- c(
   "#331a38"
 )
 
-#' hotteR colour and fill Scales
+#' hotteR colour and fill scales
 #'
 #' @seealso [ggplot2::scale_colour_discrete] [ggplot2:scale_fill_discrete]
 #' @inheritDotParams ggplot2::discrete_scale
@@ -56,7 +56,6 @@ theme_hotteR <- function(grids = FALSE){
                    axis.title = ggplot2::element_text(colour = "#331a38", face = "bold"),
                    panel.border = ggplot2::element_blank(),
                    panel.grid.minor = ggplot2::element_blank(),
-                   panel.grid.major = ggplot2::element_line(colour = "white"),
                    axis.line = ggplot2::element_line(colour = "#331a38"),
                    panel.background = ggplot2::element_rect(fill = "#E1E6E6", colour = "#E1E6E6"),
                    plot.background = ggplot2::element_rect(fill = "#E1E6E6", colour = "#E1E6E6"),
@@ -65,16 +64,16 @@ theme_hotteR <- function(grids = FALSE){
                    legend.key = ggplot2::element_rect(fill = "#E1E6E6", colour = "#E1E6E6"),
                    legend.text = ggplot2::element_text(colour = "#331a38"),
                    legend.title = ggplot2::element_text(colour = "#331a38"),
-                   plot.title = ggplot2::element_text(colour = "#331a38"),
+                   plot.title = ggplot2::element_text(colour = "#331a38", face = "bold"),
                    plot.subtitle = ggplot2::element_text(colour = "#331a38"),
                    plot.caption = ggplot2::element_text(colour = "#331a38"),
-                   strip.background = ggplot2::element_rect(fill = "#E1E6E6", colour = "#2274A5"),
+                   strip.background = ggplot2::element_rect(fill = "white", colour = "white"),
                    strip.text = ggplot2::element_text(colour = "#331a38"))
   if(grids){
     the_theme <- the_theme +
       ggplot2::theme(panel.grid.minor.x = element_blank(),
                      panel.grid.minor.y = element_blank(),
-                     panel.grid.major = ggplot2::element_line())
+                     panel.grid.major = ggplot2::element_line(colour = "white"))
   }
   return(the_theme)
 }

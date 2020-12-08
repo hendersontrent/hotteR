@@ -5,13 +5,15 @@
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @importFrom janitor clean_names
+#' @importFrom tidyr pivot_longer
+#' @importFrom stringr str_to_title
 #' @import ggplot2
 #' @author Trent Henderson
 #' @export
 #' @param data The dataframe of triplejplays data to analyse
 #'
 
-do_tweet_analysis <- function(data){
+do_plays_analysis <- function(data){
 
   message("Running analysis...")
 
@@ -31,54 +33,57 @@ do_tweet_analysis <- function(data){
 
   # Artist breakdown
 
-  p1 <- tmp %>%
-    dplyr::group_by(artist, plays) %>%
-    dplyr::summarise(counter = n()) %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(indicator = ifelse(counter <= 3,artist,"Artists with < 3 plays")) %>%
-    dplyr::group_by(artist, indicator) %>%
+  p <- tmp %>%
+    dplyr::group_by(artist) %>%
     dplyr::summarise(plays = sum(plays)) %>%
     dplyr::ungroup() %>%
-    ggplot2::ggplot(aes(x = reorder(indicator, plays), y = plays)) +
+    dplyr::top_n(15, plays) %>%
+    ggplot2::ggplot(aes(x = reorder(artist, plays), y = plays)) +
     ggplot2::geom_bar(stat = "identity") +
-    ggplot2::labs(title = "Artist breakdown",
-                  x = "Artist",
+    ggplot2::labs(title = "Top 15 artists by plays",
+                  subtitle = paste0("There was a total of ",sum(tmp$plays)," plays analysed."),
+                  x = "Artist Twitter Handle",
                   y = "Number of plays") +
     ggplot2::coord_flip() +
-    hotteR::theme_hotteR(grids = TRUE)
+    theme_hotteR(grids = TRUE)
 
   # Artist-by-song breakdown
 
   tmp_song_artist <- tmp %>%
+    dplyr::group_by(artist, song) %>%
+    dplyr::summarise(plays = sum(plays)) %>%
     dplyr::group_by(artist) %>%
-    dplyr::summarise(counter = n()) %>%
+    dplyr::summarise(number_of_songs = n()) %>%
     dplyr::ungroup()
 
   tmp_song_plays <- tmp %>%
-    dplyr::group_by(artist, plays) %>%
-    dplyr::summarise(counter = sum(plays)) %>%
+    dplyr::group_by(artist) %>%
+    dplyr::summarise(number_of_plays = sum(plays)) %>%
     dplyr::ungroup()
 
   tmp_song <- tmp_song_artist %>%
-    dplyr::left_join(tmp_song_plays, by = c("artist" = "artist"))
+    dplyr::left_join(tmp_song_plays, by = c("artist" = "artist")) %>%
+    tidyr::pivot_longer(!artist, names_to = "variable", values_to = "value") %>%
+    dplyr::mutate(variable = stringr::str_to_title(variable),
+                  variable = gsub("_", " ", variable))
 
   if(nrow(tmp_song) == 0){
     stop("An error occurred. No data found to plot.")
   }
 
   p1 <- tmp_song %>%
-    ggplot2::ggplot(aes(x = number_of_songs, y = number_of_plays)) +
-    ggplot2::geom_point(size = 2, alpha = 0.8) +
-    ggplot2::labs(title = "Artist-by-song breakdown",
-                  x = "Number of songs played",
-                  y = "Total plays",
-                  caption = "Each point is for an artist.") +
-    ggplot2::coord_flip() +
-    hotteR::theme_hotteR(grids = TRUE)
+    ggplot2::ggplot(aes(x = log(value))) +
+    ggplot2::geom_density() +
+    ggplot2::labs(title = "All artists-by-song distributional breakdown",
+                  x = "log(value)",
+                  y = "Density",
+                  caption = "Data log-scaled for interpretability.") +
+    ggplot2::facet_wrap(~variable) +
+    theme_hotteR(grids = TRUE)
 
   #--------------------- Merge into one plot and export ------------
 
-  p2 <- ggpubr::ggarrange(p, p1, nrows = 1, ncols = 2)
+  p2 <- ggpubr::ggarrange(p, p1, nrow = 2, ncol = 1)
 
   return(p2)
 }
