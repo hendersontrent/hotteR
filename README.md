@@ -38,12 +38,34 @@ play_data <- get_plays(year = 2020)
 
 You can automatically get some high level analysis and data
 visualisations for data retrieved from `get_plays()` using
-`do_plays_analysis`.
+`do_plays_analysis()`.
 
 ``` r
 library(hotteR)
 play_data <- get_plays(year = 2020)
 do_plays_analysis(the_plays)
+```
+
+### get\_countdowns()
+
+You can webscrape all prior Hottest 100 Countdown results (including
+Hottest 100 of the decade) using `get_countdowns()`.
+
+``` r
+library(hotteR)
+countdown_data <- get_countdowns()
+```
+
+### do\_countdown\_analysis()
+
+You can automatically get some high level analysis and data
+visualisations for data retrieved from `get_countdowns()` using
+`do_countdown_analysis()`.
+
+``` r
+library(hotteR)
+countdown_data <- get_countdowns()
+do_countdown_analysis(countdown_data)
 ```
 
 ### theme\_hotteR
@@ -57,9 +79,8 @@ library(scales)
 scales::show_col(hotteR:::hotteR_palette)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ## Further work
 
-More functions are currently under development - with a few specifically
-related to the Hottest 100 Countdown. Please check back soon\!
+More functions are currently under development. Please check back soon\!
