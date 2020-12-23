@@ -9,6 +9,9 @@ get_plays(year = 2020)
 \arguments{
 \item{year}{The year of interest to pull tweets from - only current year is possible due to API limitations}
 }
+\value{
+Returns a clean and tidy dataframe of tweets from triplejplays in an aggregated format ready for visualisation
+}
 \description{
 Function to pull tweets from the 'triplejplays' Twitter account where plays are stored
 }

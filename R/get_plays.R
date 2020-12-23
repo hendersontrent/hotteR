@@ -4,6 +4,7 @@
 #' @import dplyr
 #' @import rtweet
 #' @importFrom magrittr %>%
+#' @return Returns a clean and tidy dataframe of tweets from triplejplays in an aggregated format ready for visualisation
 #' @author Trent Henderson
 #' @export
 #' @param year The year of interest to pull tweets from - only current year is possible due to API limitations

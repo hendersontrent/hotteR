@@ -1,5 +1,5 @@
 #'
-#' Builds the main function for styling ggplot2 plots in The hotteR style
+#' Builds the main function for styling ggplot2 plots in the hotteR style
 #' Import the correct colours as hex codes to be used
 #'
 #'  @author Trent Henderson
