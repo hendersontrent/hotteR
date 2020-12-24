@@ -56,6 +56,17 @@ library(hotteR)
 countdown_data <- get_countdowns()
 ```
 
+### historical\_countdowns
+
+A full dataset of all previous Hottest 100 Countdowns available to-date
+comes ready with the package. It has columns for rank, year, artist
+name, song name, and artist nationality.
+
+``` r
+library(hotteR)
+historical_countdowns
+```
+
 ### do\_countdown\_analysis()
 
 You can automatically get some high level analysis and data
@@ -79,7 +90,7 @@ library(scales)
 scales::show_col(hotteR:::hotteR_palette)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ## Further work
 

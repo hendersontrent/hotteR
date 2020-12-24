@@ -8,6 +8,7 @@
 #' @importFrom tidyr pivot_longer
 #' @importFrom stringr str_to_title
 #' @import ggplot2
+#' @importFrom ggpubr ggarrange
 #' @return Returns an object of class ggplot which contains a matrix of plots
 #' @author Trent Henderson
 #' @export
