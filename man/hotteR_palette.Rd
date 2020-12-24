@@ -12,6 +12,10 @@ An object of class \code{character} of length 5.
 hotteR_palette
 }
 \description{
-@author Trent Henderson
+Builds the main function for styling ggplot2 plots in the hotteR style
+Import the correct colours as hex codes to be used
+}
+\author{
+Trent Henderson
 }
 \keyword{datasets}

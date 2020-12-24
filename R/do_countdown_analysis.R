@@ -1,12 +1,15 @@
 #'
 #' Function to produce a small analysis document for a given year's Hottest 100 Countdown
-#' #' This function should ideally take the dataframe output straight from hotteR::get_countdowns()
+#' This function should ideally take the dataframe output straight from hotteR::get_countdowns()
+#' or from the included historical_countdowns dataframe.
 #'
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @importFrom janitor clean_names
 #' @import ggplot2
 #' @importFrom ggpubr ggarrange
+#' @importFrom scales comma
+#' @return Returns an object of class ggplot which contains a matrix of plots
 #' @author Trent Henderson
 #' @export
 #' @param data The dataframe of Hottest 100 results to analyse
@@ -19,13 +22,18 @@ do_countdown_analysis <- function(data){
   # Check if colnames of the input dataframe are correct
 
   tmp <- data %>%
-    janitor::clean_names()
+    janitor::clean_names() %>%
+    dplyr::mutate(indicator = case_when(
+      grepl(" ", year) ~ "Remove",
+      TRUE             ~ "Keep")) %>%
+    dplyr::filter(indicator == "Keep") %>% # Remove specialist Countdowns (e.g. Of The Decade, All-Time)
+    dplyr::select(-c(indicator))
 
   my_names <- colnames(tmp)
-  the_names <- c("year", "rank", "artist", "song")
+  the_names <- c("year", "rank", "artist", "song", "country")
 
   if(setequal(my_names, the_names) == FALSE){
-    stop("Input dataframe should have the following column structure: year, rank, artist, song")
+    stop("Input dataframe should have the following columns: year, rank, artist, song, country")
   }
 
   #--------------------- Analysis and data visualisation -----------
@@ -41,6 +49,7 @@ do_countdown_analysis <- function(data){
     ggplot2::labs(title = "Country breakdown",
                   x = "Country",
                   y = "Number of songs") +
+    ggplot2::scale_y_continuous(labels = scales::comma) +
     ggplot2::coord_flip() +
     hotteR::theme_hotteR(grids = TRUE)
 
@@ -50,21 +59,69 @@ do_countdown_analysis <- function(data){
     dplyr::group_by(artist) %>%
     dplyr::summarise(counter = n()) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(indicator = ifelse(counter > 1,artist,"Single")) %>%
+    dplyr::mutate(indicator = ifelse(counter > 10,artist,"Single")) %>%
+    dplyr::filter(indicator != "Single") %>%
     dplyr::group_by(indicator) %>%
     dplyr::summarise(counter = sum(counter)) %>%
     dplyr::ungroup() %>%
     ggplot2::ggplot(aes(x = reorder(indicator, counter), y = counter)) +
     ggplot2::geom_bar(stat = "identity") +
-    ggplot2::labs(title = "Artist breakdown",
+    ggplot2::labs(title = "Artists with > 10 songs",
                   x = "Artist",
                   y = "Number of songs") +
     ggplot2::coord_flip() +
     hotteR::theme_hotteR(grids = TRUE)
 
-  #--------------------- Merge into one plot and export ------------
+  # Density plot
 
-  p2 <- ggpubr::ggarrange(p, p1, nrows = 1, ncols = 2)
+  p2 <- tmp %>%
+    dplyr::mutate(country = ifelse(country == "Australia", "Australian", "International")) %>%
+    ggplot2::ggplot(aes(x = country, y = rank)) +
+    ggplot2::geom_jitter(aes(colour = country), alpha = 0.2) +
+    ggplot2::geom_boxplot(aes(fill = country, colour = country), alpha = 0.6, outlier.shape = NA) +
+    ggplot2::labs(title = "Rank distribution",
+                  x = "Artist nationality",
+                  y = "Hottest 100 rank") +
+    ggplot2::scale_colour_manual(values = c("#fa448c", "#fec859")) +
+    ggplot2::scale_fill_manual(values = c("#fa448c", "#fec859")) +
+    ggplot2::guides(colour = guide_legend(show = FALSE)) +
+    ggplot2::scale_y_continuous(limits = c(1,100)) +
+    hotteR::theme_hotteR(grids = TRUE) +
+    ggplot2::theme(legend.position = "none")
 
-  return(p2)
+  # Time series
+
+  if(length(unique(tmp$year)) > 1){
+
+    p3 <- tmp %>%
+      dplyr::mutate(year = as.numeric(year)) %>%
+      dplyr::mutate(country = ifelse(country == "Australia", "Australian", "International")) %>%
+      dplyr::group_by(year, country) %>%
+      dplyr::summarise(counter = n()) %>%
+      dplyr::group_by(year) %>%
+      dplyr::mutate(props = (counter / sum(counter))*100) %>%
+      dplyr::ungroup() %>%
+      ggplot2::ggplot(aes(x = year, y = props)) +
+      ggplot2::geom_line(aes(colour = country), stat = "identity", size = 1) +
+      ggplot2::labs(title = "Time series of nationality",
+                    x = "Year",
+                    y = "Percentage of Songs",
+                    colour = "Artist Nationality") +
+      ggplot2::scale_colour_manual(values = c("#fa448c", "#fec859")) +
+      ggplot2::scale_y_continuous(limits = c(0,100),
+                                  breaks = c(0,25,50,75,100),
+                                  labels = function(x) paste0(x,"%")) +
+      ggplot2::scale_x_continuous(labels = function(x) round(x, digits = 0)) +
+      hotteR::theme_hotteR(grids = TRUE)
+
+    myplot <- ggpubr::ggarrange(p2,p3,p,p1)
+  } else{
+    myplot <- ggpubr::ggarrange(p3,
+                            ggpubr::ggarrange(p, p1, ncol = 2),
+                            nrow = 2)
+  }
+
+  #--------------------- Export ------------------------------------
+
+  return(myplot)
 }

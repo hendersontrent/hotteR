@@ -53,6 +53,15 @@ library(hotteR)
 countdown_data <- get_countdowns()
 ```
 
+### historical_countdowns
+
+A full dataset of all previous Hottest 100 Countdowns available to-date comes ready with the package. It has columns for rank, year, artist name, song name, and artist nationality.
+
+```{r message = FALSE, eval = FALSE, warning = FALSE}
+library(hotteR)
+historical_countdowns
+```
+
 ### do_countdown_analysis()
 
 You can automatically get some high level analysis and data visualisations for data retrieved from `get_countdowns()` using `do_countdown_analysis()`.

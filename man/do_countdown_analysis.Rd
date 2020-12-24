@@ -3,16 +3,21 @@
 \name{do_countdown_analysis}
 \alias{do_countdown_analysis}
 \title{Function to produce a small analysis document for a given year's Hottest 100 Countdown
-#' This function should ideally take the dataframe output straight from hotteR::get_countdowns()}
+This function should ideally take the dataframe output straight from hotteR::get_countdowns()
+or from the included historical_countdowns dataframe.}
 \usage{
 do_countdown_analysis(data)
 }
 \arguments{
 \item{data}{The dataframe of Hottest 100 results to analyse}
 }
+\value{
+Returns an object of class ggplot which contains a matrix of plots
+}
 \description{
 Function to produce a small analysis document for a given year's Hottest 100 Countdown
-#' This function should ideally take the dataframe output straight from hotteR::get_countdowns()
+This function should ideally take the dataframe output straight from hotteR::get_countdowns()
+or from the included historical_countdowns dataframe.
 }
 \author{
 Trent Henderson
