@@ -6,7 +6,7 @@ output: rmarkdown::github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-comment = NA, fig.width = 6, fig.height = 4, cache = FALSE)
+comment = NA, fig.width = 12, fig.height = 8, cache = FALSE)
 ```
 
 Hottest 100 Countdown and Triple J Analysis in R.
@@ -64,12 +64,17 @@ historical_countdowns
 
 ### do_countdown_analysis()
 
-You can automatically get some high level analysis and data visualisations for data retrieved from `get_countdowns()` using `do_countdown_analysis()`.
+You can automatically get some high level analysis and data visualisations for data retrieved from `get_countdowns()` or `historical_countdowns` using `do_countdown_analysis()`.
 
-```{r message = FALSE, eval = FALSE, warning = FALSE}
+```{r message = FALSE, warning = FALSE, fig.keep = TRUE}
+library(dplyr)
+library(magrittr)
+library(janitor)
+library(ggplot2)
+library(ggpubr)
 library(hotteR)
-countdown_data <- get_countdowns()
-do_countdown_analysis(countdown_data)
+
+do_countdown_analysis(historical_countdowns)
 ```
 
 ### theme_hotteR

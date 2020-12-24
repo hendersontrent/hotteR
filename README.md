@@ -70,14 +70,21 @@ historical_countdowns
 ### do\_countdown\_analysis()
 
 You can automatically get some high level analysis and data
-visualisations for data retrieved from `get_countdowns()` using
-`do_countdown_analysis()`.
+visualisations for data retrieved from `get_countdowns()` or
+`historical_countdowns` using `do_countdown_analysis()`.
 
 ``` r
+library(dplyr)
+library(magrittr)
+library(janitor)
+library(ggplot2)
+library(ggpubr)
 library(hotteR)
-countdown_data <- get_countdowns()
-do_countdown_analysis(countdown_data)
+
+do_countdown_analysis(historical_countdowns)
 ```
+
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ### theme\_hotteR
 
