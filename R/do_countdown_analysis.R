@@ -15,7 +15,7 @@
 #' @param data The dataframe of Hottest 100 results to analyse
 #'
 
-do_countdown_analysis <- function(data){
+do_countdown_analysisa <- function(data){
 
   message("Running analysis...")
 
@@ -72,22 +72,28 @@ do_countdown_analysis <- function(data){
     ggplot2::coord_flip() +
     hotteR::theme_hotteR(grids = TRUE)
 
-  # Density plot
+  # Boxplot
+
+  most_recent <- tmp %>%
+    dplyr::mutate(year = as.numeric(year)) %>%
+    dplyr::select(c(year)) %>%
+    dplyr::distinct() %>%
+    dplyr::top_n(year, n = 1)
 
   p2 <- tmp %>%
     dplyr::mutate(country = ifelse(country == "Australia", "Australian", "International")) %>%
+    dplyr::mutate(decade = ifelse(year %in% most_recent$year, "Last Countdown", "Prior Countdowns")) %>%
     ggplot2::ggplot(aes(x = country, y = rank)) +
-    ggplot2::geom_jitter(aes(colour = country), alpha = 0.2) +
-    ggplot2::geom_boxplot(aes(fill = country, colour = country), alpha = 0.6, outlier.shape = NA) +
+    ggplot2::geom_boxplot(aes(fill = country), alpha = 0.7, outlier.shape = NA, colour = "#331a38") +
     ggplot2::labs(title = "Rank distribution",
                   x = "Artist nationality",
-                  y = "Hottest 100 rank") +
-    ggplot2::scale_colour_manual(values = c("#fa448c", "#fec859")) +
+                  y = "Hottest 100 rank",
+                  fill = "Artist nationality") +
     ggplot2::scale_fill_manual(values = c("#fa448c", "#fec859")) +
-    ggplot2::guides(colour = guide_legend(show = FALSE)) +
     ggplot2::scale_y_continuous(limits = c(1,100)) +
     hotteR::theme_hotteR(grids = TRUE) +
-    ggplot2::theme(legend.position = "none")
+    ggplot2::theme(legend.position = "bottom") +
+    ggplot2::facet_wrap(~decade)
 
   # Time series
 
@@ -105,8 +111,8 @@ do_countdown_analysis <- function(data){
       ggplot2::geom_line(aes(colour = country), stat = "identity", size = 1) +
       ggplot2::labs(title = "Time series of nationality",
                     x = "Year",
-                    y = "Percentage of Songs",
-                    colour = "Artist Nationality") +
+                    y = "Percentage of songs",
+                    colour = "Artist nationality") +
       ggplot2::scale_colour_manual(values = c("#fa448c", "#fec859")) +
       ggplot2::scale_y_continuous(limits = c(0,100),
                                   breaks = c(0,25,50,75,100),
