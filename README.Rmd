@@ -25,25 +25,6 @@ Previous analysis by [Orbisant Analytics](https://www.orbisantanalytics.com/hott
 
 ## Core functions
 
-### get_plays()
-
-You can automatically pull summed counts of plays from the @triplejplays Twitter account using the `get_plays()` one-line function. The data is cleaned, processed, and summed behind the scenes, leaving you more time to focus on analysis and data visualisation.
-
-```{r message = FALSE, eval = FALSE, warning = FALSE}
-library(hotteR)
-play_data <- get_plays(year = 2020)
-```
-
-### do_plays_analysis()
-
-You can automatically get some high level analysis and data visualisations for data retrieved from `get_plays()` using `do_plays_analysis()`.
-
-```{r message = FALSE, eval = FALSE, warning = FALSE}
-library(hotteR)
-play_data <- get_plays(year = 2020)
-do_plays_analysis(the_plays)
-```
-
 ### get_countdowns()
 
 You can webscrape all prior Hottest 100 Countdown results (including Hottest 100 of the decade) using `get_countdowns()`.
@@ -75,6 +56,25 @@ library(ggpubr)
 library(hotteR)
 
 do_countdown_analysis(historical_countdowns)
+```
+
+### get_plays()
+
+You can automatically pull summed counts of plays from the @triplejplays Twitter account using the `get_plays()` one-line function. The data is cleaned, processed, and summed behind the scenes, leaving you more time to focus on analysis and data visualisation.
+
+```{r message = FALSE, eval = FALSE, warning = FALSE}
+library(hotteR)
+play_data <- get_plays(year = 2020)
+```
+
+### do_plays_analysis()
+
+You can automatically get some high level analysis and data visualisations for data retrieved from `get_plays()` using `do_plays_analysis()`.
+
+```{r message = FALSE, eval = FALSE, warning = FALSE}
+library(hotteR)
+play_data <- get_plays(year = 2020)
+do_plays_analysis(the_plays)
 ```
 
 ### theme_hotteR
