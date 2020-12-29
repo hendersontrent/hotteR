@@ -15,7 +15,7 @@
 #' @param data The dataframe of Hottest 100 results to analyse
 #'
 
-do_countdown_analysisa <- function(data){
+do_countdown_analysis <- function(data){
 
   message("Running analysis...")
 
