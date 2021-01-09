@@ -3,7 +3,8 @@
 \name{get_countdowns}
 \alias{get_countdowns}
 \title{Function to webscrape historical Triple J Hottest 100 Countdown results
-and return a dataframe of cleaned results in an analysis-ready format}
+and return a dataframe of cleaned results in an analysis-ready format. Note
+that this function is highly unstable due to the nature of RSelenium.}
 \usage{
 get_countdowns()
 }
@@ -12,7 +13,8 @@ Dataframe of results for all years in a tidy format
 }
 \description{
 Function to webscrape historical Triple J Hottest 100 Countdown results
-and return a dataframe of cleaned results in an analysis-ready format
+and return a dataframe of cleaned results in an analysis-ready format. Note
+that this function is highly unstable due to the nature of RSelenium.
 }
 \author{
 Joy Horng
