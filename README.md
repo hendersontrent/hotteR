@@ -29,6 +29,7 @@ Hottest 100 of the decade) using `get_countdowns()`.
 
 ``` r
 library(hotteR)
+
 countdown_data <- get_countdowns()
 ```
 
@@ -40,6 +41,7 @@ name, song name, and artist nationality.
 
 ``` r
 library(hotteR)
+
 historical_countdowns
 ```
 
@@ -71,6 +73,7 @@ to focus on analysis and data visualisation.
 
 ``` r
 library(hotteR)
+
 play_data <- get_plays(year = 2020)
 ```
 
@@ -82,11 +85,83 @@ visualisations for data retrieved from `get_plays()` using
 
 ``` r
 library(hotteR)
+
 play_data <- get_plays(year = 2020)
 do_plays_analysis(the_plays)
 ```
 
-### theme\_hotteR
+### calculate\_priors()
+
+Bayesian functionality is built into the package given the annually
+updating nature of the Hottest 100 Countdown. All Bayesian functions
+have been coded in the probabilistic programming language `Stan` and
+abstracted away into a one line R function for ease of use. The first
+function is `calculate_priors()` which computes a mean, standard
+deviation (SD), 2.5% credible interval lower bound and 97.5% credible
+interval upper bound (together forming a 95% credible interval) for an
+ordinal logistic regression model of quartile placement in the Hottest
+100. The mean and SD calculated by this function can be used as
+informative priors in a predictive model. This function takes one of two
+timescales as an argument:
+
+  - “Last Decade”
+  - “All Time”
+
+<!-- end list -->
+
+``` r
+library(tidyverse)
+library(rstan)
+library(hotteR)
+
+priors <- calculate_priors(timescale = "All Time")
+```
+
+### plot\_priors()
+
+As well as the formal value calculation of priors, a calculation and
+distribution visualisation function is also included as `plot_priors()`.
+This function produces a density plot of the coefficient for the
+nationality predictor variable. This function takes one of two
+timescales as an argument:
+
+  - “Last Decade”
+  - “All Time”
+
+<!-- end list -->
+
+``` r
+library(tidyverse)
+library(rstan)
+library(hotteR)
+
+plot_prior(timescale = "All Time")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+### plot\_probabilities()
+
+You can automatically produce density plots of probability of
+belongingness by Hottest 100 Countdown quartile and nationality with
+`plot_probabilities()`. This function takes one of two timescales as an
+argument:
+
+  - “Last Decade”
+  - “All Time”
+
+<!-- end list -->
+
+``` r
+library(tidyverse)
+library(hotteR)
+
+plot_probabilities(timescale = "Last Decade")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+### theme\_hotteR()
 
 As well as data scraping and analysis functions, `hotteR` also provides
 a distinct and striking contrasting colour palette that is called and
@@ -94,10 +169,11 @@ used by default when the package is loaded.
 
 ``` r
 library(scales)
+
 scales::show_col(hotteR:::hotteR_palette)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ## Further work
 
