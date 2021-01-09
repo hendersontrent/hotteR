@@ -29,8 +29,8 @@ extract_dropdown_options <- function(xpath){
 
 #'
 #' Function to webscrape historical Triple J Hottest 100 Countdown results
-#' and return a dataframe of cleaned results in an analysis-ready format
-#'
+#' and return a dataframe of cleaned results in an analysis-ready format. Note
+#' that this function is highly unstable due to the nature of RSelenium.
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @import glue

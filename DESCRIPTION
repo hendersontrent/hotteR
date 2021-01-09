@@ -1,7 +1,7 @@
 Package: hotteR
 Type: Package
 Title: Hottest 100 Countdown and Triple J Analysis in R
-Version: 0.1.1
+Version: 0.2.1
 Authors@R: c(
   person("Trent", "Henderson", email = "trent.henderson1@outlook.com", role = c("cre", "aut")),
   person("Joy", "Horng", email = "joy.horng@nousgroup.com.au", role = "aut")
@@ -30,7 +30,6 @@ Imports:
     ggpubr,
     janitor,
     rtweet,
-    RSelenium
-Suggests:
-    scales
+    RSelenium,
+    rstan
 RoxygenNote: 7.1.1
