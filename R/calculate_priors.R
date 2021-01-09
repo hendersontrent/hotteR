@@ -86,7 +86,7 @@ calculate_priors <- function(timescale = c("Last Decade", "All Time")){
 
   system.time({
     mod <- rstan::stan(data = stan_data,
-                file = system.file("inst", "predict_probabilities.stan", package = "hotteR"), # Ships with package
+                file = system.file("inst", "calculate_priors.stan", package = "hotteR"), # Ships with package
                 iter = 1000,
                 chains = 3,
                 seed = 123)
