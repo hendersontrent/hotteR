@@ -1,20 +1,22 @@
 #'
 #' Function to produce a basic Bayesian analysis of artist nationality
-#' probabilities for each quartile. The purpose of this is to use flat priors
-#' in order to fit a model and assess the distribution of coefficient values
-#' before using outputs as an informative
-#' prior in a predictive model
+#' probabilities for each quartile in the next Hottest 100 Countdown using
+#' an informative prior from the calculate_priors() function
 #' @import dplyr
 #' @import rstan
 #' @importFrom magrittr %>%
 #' @importFrom janitor clean_names
 #' @param timescale a value of either ["Last Decade", "All Time"] indicating the timescale to calculate over
-#' @return a dataframe of Bayesian Stan model outputs with 4 columns [mean, sd, lower, upper] where "lower" and "upper" form the 95% credible interval
+#' @param nationality_prior_mean a scalar value for the mean of the prior distribution of nationality in log odds
+#' @param nationality_prior_sd a scalar value for the standard deviation of the prior distribution of nationality in log odds
+#' @return a Stan model which can then be evaluated for model fit and other diagnostics
 #' @author Trent Henderson
 #' @export
 #'
 
-calculate_priors <- function(timescale = c("Last Decade", "All Time")){
+calculate_prob_preds <- function(timescale = c("Last Decade", "All Time"),
+                                 nationality_prior_mean,
+                                 nationality_prior_sd){
 
   timescale <- match.arg(timescale)
 
@@ -29,6 +31,14 @@ calculate_priors <- function(timescale = c("Last Decade", "All Time")){
 
   if(timescale %ni% the_timescales){
     stop("timescale should be a single entry of either 'Last Decade' or 'All Time")
+  }
+
+  if(!as.numeric(nationality_prior_mean)){
+    stop("nationality_prior_mean should be a numeric scalar quantity.")
+  }
+
+  if(!as.numeric(nationality_prior_sd)){
+    stop("nationality_prior_sd should be a numeric scalar quantity.")
   }
 
   #------------ Aggregate historical data -----------------
@@ -76,29 +86,27 @@ calculate_priors <- function(timescale = c("Last Decade", "All Time")){
   K <- length(unique(tmp1$quartile))
   y <- tmp1$quartile
   nationality <- tmp1$nationality
+  nationality_prior_mean <- nationality_prior_mean
+  nationality_prior_sd <- nationality_prior_sd
+
 
   stan_data <- list(N = N,
                     K = K,
                     y = y,
-                    nationality = nationality)
+                    nationality = nationality,
+                    nationality_prior_mean = nationality_prior_mean,
+                    nationality_prior_sd = nationality_prior_sd)
 
   # Run the model and track evaluation time
 
   system.time({
     mod <- rstan::stan(data = stan_data,
-                file = system.file("stan", "calculate_priors.stan", package = "hotteR"), # Ships with package
-                iter = 1000,
-                chains = 3,
-                seed = 123)
+                       #file = system.file("stan", "predict_probabilities.stan", package = "hotteR"), # Ships with package
+                       file = "/Users/trenthenderson/Documents/Git/hotteR/inst/stan/calculate_prob_preds.stan",
+                       iter = 1000,
+                       chains = 3,
+                       seed = 123)
   })
 
-  # Extract model information
-
-  mod_output <- as.data.frame(mod) %>%
-    dplyr::summarise(mean = mean(beta_nationality),
-                     sd = sd(beta_nationality),
-                     lower = quantile(beta_nationality, probs = 0.025),
-                     upper = quantile(beta_nationality, probs = 0.975))
-
-  return(mod_output)
+  return(mod)
 }
