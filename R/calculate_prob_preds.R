@@ -9,7 +9,7 @@
 #' @param timescale a value of either ["Last Decade", "All Time"] indicating the timescale to calculate over
 #' @param nationality_prior_mean a scalar value for the mean of the prior distribution of nationality in log odds
 #' @param nationality_prior_sd a scalar value for the standard deviation of the prior distribution of nationality in log odds
-#' @return a Stan model which can then be evaluated for model fit and other diagnostics
+#' @return a dataframe of tidied model outputs including values for coefficients, eta, log likelihood and posterior predictive checks
 #' @author Trent Henderson
 #' @export
 #'
@@ -78,7 +78,7 @@ calculate_prob_preds <- function(timescale = c("Last Decade", "All Time"),
     tmp1 <- tmp
   }
 
-  #------------ Run a flat prior model to get priors ------
+  #------------ Run the Bayesian model --------------------
 
   # Set up data to feed into the model
 
@@ -101,12 +101,64 @@ calculate_prob_preds <- function(timescale = c("Last Decade", "All Time"),
 
   system.time({
     mod <- rstan::stan(data = stan_data,
-                       #file = system.file("stan", "predict_probabilities.stan", package = "hotteR"), # Ships with package
-                       file = "/Users/trenthenderson/Documents/Git/hotteR/inst/stan/calculate_prob_preds.stan",
+                       file = system.file("stan", "calculate_prob_preds.stan", package = "hotteR"), # Ships with package
                        iter = 1000,
                        chains = 3,
                        seed = 123)
   })
 
-  return(mod)
+  #------------- Extract model outputs and samples -----------------
+
+  # Coefficients
+
+  betas <- as.data.frame(mod) %>%
+    dplyr::select(c(beta_nationality)) %>%
+    dplyr::mutate(ID = dplyr::row_number()) %>% # Enables left_join() later
+    dplyr::select(c(ID, beta_nationality))
+
+  # Eta
+
+  calc <- as.data.frame(mod) %>%
+    dplyr::select(contains("calc")) %>%
+    dplyr::mutate(ID = row_number()) %>%
+    dplyr::gather(key = calc, value = value, contains("calc")) %>%
+    dplyr::group_by(ID) %>%
+    dplyr::summarise(calc_mean = mean(value),
+              calc_median = median(value),
+              calc_lower = quantile(value, probs = 0.025),
+              calc_upper = quantile(value, probs = 0.975)) %>%
+    dplyr::ungroup()
+
+  # Log likelihood
+
+  log_lik <- as.data.frame(mod) %>%
+    dplyr::select(contains("log_lik")) %>%
+    dplyr::mutate(ID = row_number()) %>%
+    dplyr::gather(key = log_lik, value = value, contains("log_lik")) %>%
+    dplyr::group_by(ID) %>%
+    dplyr::summarise(log_lik_mean = mean(value),
+              log_lik_median = median(value),
+              log_lik_lower = quantile(value, probs = 0.025),
+              log_lik_upper = quantile(value, probs = 0.975)) %>%
+    dplyr::ungroup()
+
+  # Posterior predictive checks
+
+  ppc <- as.data.frame(mod) %>%
+    dplyr::select(contains("y_ppc")) %>%
+    dplyr::mutate(ID = row_number()) %>%
+    dplyr::gather(key = y_ppc, value = value, contains("y_ppc")) %>%
+    dplyr::group_by(ID) %>%
+    dplyr::summarise(y_ppc_mean = mean(value),
+              y_ppc_median = median(value)) %>%
+    dplyr::ungroup()
+
+  # Merge all together
+
+  all_model_outs <- betas %>%
+    dplyr::left_join(calc, by = c("ID" = "ID")) %>%
+    dplyr::left_join(log_lik, by = c("ID" = "ID")) %>%
+    dplyr::left_join(ppc, by = c("ID" = "ID"))
+
+  return(all_model_outs)
 }
