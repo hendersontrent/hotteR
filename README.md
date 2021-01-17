@@ -161,6 +161,20 @@ plot_probabilities(timescale = "Last Decade")
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
+### plot\_quartile\_area()
+
+You can automatically produce density plots by quartile and nationality
+using `plot_quartile_area()`:
+
+``` r
+library(tidyverse)
+library(hotteR)
+
+plot_quartile_area()
+```
+
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
 ### theme\_hotteR()
 
 As well as data scraping and analysis functions, `hotteR` also provides
@@ -173,7 +187,7 @@ library(scales)
 scales::show_col(hotteR:::hotteR_palette)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ## Further work
 
