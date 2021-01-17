@@ -56,6 +56,7 @@ library(dplyr)
 library(magrittr)
 library(janitor)
 library(ggplot2)
+library(scales)
 library(ggpubr)
 library(hotteR)
 
@@ -72,8 +73,6 @@ cleaned, processed, and summed behind the scenes, leaving you more time
 to focus on analysis and data visualisation.
 
 ``` r
-library(hotteR)
-
 play_data <- get_plays(year = 2020)
 ```
 
@@ -84,8 +83,6 @@ visualisations for data retrieved from `get_plays()` using
 `do_plays_analysis()`.
 
 ``` r
-library(hotteR)
-
 play_data <- get_plays(year = 2020)
 do_plays_analysis(the_plays)
 ```
@@ -110,9 +107,7 @@ timescales as an argument:
 <!-- end list -->
 
 ``` r
-library(tidyverse)
 library(rstan)
-library(hotteR)
 
 priors <- calculate_priors(timescale = "All Time")
 ```
@@ -131,10 +126,6 @@ timescales as an argument:
 <!-- end list -->
 
 ``` r
-library(tidyverse)
-library(rstan)
-library(hotteR)
-
 plot_prior(timescale = "All Time")
 ```
 
@@ -153,9 +144,6 @@ argument:
 <!-- end list -->
 
 ``` r
-library(tidyverse)
-library(hotteR)
-
 plot_probabilities(timescale = "Last Decade")
 ```
 
@@ -163,13 +151,10 @@ plot_probabilities(timescale = "Last Decade")
 
 ### plot\_quartile\_area()
 
-You can automatically produce density plots by quartile and nationality
-using `plot_quartile_area()`:
+You can automatically produce time series area plots by quartile and
+nationality using `plot_quartile_area()`:
 
 ``` r
-library(tidyverse)
-library(hotteR)
-
 plot_quartile_area()
 ```
 
@@ -182,8 +167,6 @@ a distinct and striking contrasting colour palette that is called and
 used by default when the package is loaded.
 
 ``` r
-library(scales)
-
 scales::show_col(hotteR:::hotteR_palette)
 ```
 

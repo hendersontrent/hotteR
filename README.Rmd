@@ -54,6 +54,7 @@ library(dplyr)
 library(magrittr)
 library(janitor)
 library(ggplot2)
+library(scales)
 library(ggpubr)
 library(hotteR)
 
@@ -65,8 +66,6 @@ do_countdown_analysis(historical_countdowns)
 You can automatically pull summed counts of plays from the @triplejplays Twitter account using the `get_plays()` one-line function. The data is cleaned, processed, and summed behind the scenes, leaving you more time to focus on analysis and data visualisation.
 
 ```{r message = FALSE, eval = FALSE, warning = FALSE}
-library(hotteR)
-
 play_data <- get_plays(year = 2020)
 ```
 
@@ -75,8 +74,6 @@ play_data <- get_plays(year = 2020)
 You can automatically get some high level analysis and data visualisations for data retrieved from `get_plays()` using `do_plays_analysis()`.
 
 ```{r message = FALSE, eval = FALSE, warning = FALSE}
-library(hotteR)
-
 play_data <- get_plays(year = 2020)
 do_plays_analysis(the_plays)
 ```
@@ -89,9 +86,7 @@ Bayesian functionality is built into the package given the annually updating nat
 * "All Time"
 
 ```{r message = FALSE, eval = FALSE, warning = FALSE}
-library(tidyverse)
 library(rstan)
-library(hotteR)
 
 priors <- calculate_priors(timescale = "All Time")
 ```
@@ -104,10 +99,6 @@ As well as the formal value calculation of priors, a calculation and distributio
 * "All Time"
 
 ```{r warning = FALSE, message = FALSE, error = FALSE, results = 'hide', fig.keep = TRUE}
-library(tidyverse)
-library(rstan)
-library(hotteR)
-
 plot_prior(timescale = "All Time")
 ```
 
@@ -119,20 +110,14 @@ You can automatically produce density plots of probability of belongingness by H
 * "All Time"
 
 ```{r message = FALSE, warning = FALSE, fig.keep = TRUE}
-library(tidyverse)
-library(hotteR)
-
 plot_probabilities(timescale = "Last Decade")
 ```
 
 ### plot_quartile_area()
 
-You can automatically produce density plots by quartile and nationality using `plot_quartile_area()`:
+You can automatically produce time series area plots by quartile and nationality using `plot_quartile_area()`:
 
 ```{r message = FALSE, warning = FALSE, fig.keep = TRUE}
-library(tidyverse)
-library(hotteR)
-
 plot_quartile_area()
 ```
 
@@ -141,8 +126,6 @@ plot_quartile_area()
 As well as data scraping and analysis functions, `hotteR` also provides a distinct and striking contrasting colour palette that is called and used by default when the package is loaded.
 
 ```{r message = FALSE}
-library(scales)
-
 scales::show_col(hotteR:::hotteR_palette)
 ```
 
