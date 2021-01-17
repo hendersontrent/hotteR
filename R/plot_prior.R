@@ -112,7 +112,7 @@ plot_prior <- function(timescale = c("Last Decade", "All Time")){
                                     "Odds < 1 indicates that Australian artists have lower odds of being in higher quartiles (i.e. ranked closer to 100) than being in lower quartiles."),
                   x = "Coefficient odds",
                   y = "Density",
-                  caption = "This initial model was generated using flat priors. Log odds converted to odds for interpretability.\n Purple line indicates median.") +
+                  caption = "This initial model was generated using flat priors. Log odds converted to odds for interpretability. Purple line indicates median.") +
     hotteR::theme_hotteR(grids = TRUE)
 
   return(p)
