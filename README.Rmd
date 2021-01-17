@@ -125,6 +125,17 @@ library(hotteR)
 plot_probabilities(timescale = "Last Decade")
 ```
 
+### plot_quartile_area()
+
+You can automatically produce density plots by quartile and nationality using `plot_quartile_area()`:
+
+```{r message = FALSE, warning = FALSE, fig.keep = TRUE}
+library(tidyverse)
+library(hotteR)
+
+plot_quartile_area()
+```
+
 ### theme_hotteR()
 
 As well as data scraping and analysis functions, `hotteR` also provides a distinct and striking contrasting colour palette that is called and used by default when the package is loaded.

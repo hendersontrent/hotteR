@@ -3,10 +3,9 @@
 \name{calculate_priors}
 \alias{calculate_priors}
 \title{Function to produce a basic Bayesian analysis of artist nationality
-probabilities for each quartile in the next Hottest 100 Countdown. The
-purpose of this is to use flat priors in order to fit a model and assess
-the distribution of coefficient values before using outputs as an informative
-prior in a predictive model}
+probabilities for each quartile. The purpose of this is to use flat priors
+in order to fit a model and assess the distribution of coefficient values
+before using outputs as an informative prior in a predictive model}
 \usage{
 calculate_priors(timescale = c("Last Decade", "All Time"))
 }
@@ -18,10 +17,9 @@ a dataframe of Bayesian Stan model outputs with 4 columns [mean, sd, lower, uppe
 }
 \description{
 Function to produce a basic Bayesian analysis of artist nationality
-probabilities for each quartile in the next Hottest 100 Countdown. The
-purpose of this is to use flat priors in order to fit a model and assess
-the distribution of coefficient values before using outputs as an informative
-prior in a predictive model
+probabilities for each quartile. The purpose of this is to use flat priors
+in order to fit a model and assess the distribution of coefficient values
+before using outputs as an informative prior in a predictive model
 }
 \author{
 Trent Henderson

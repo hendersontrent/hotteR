@@ -2,8 +2,7 @@
 #' Function to produce a basic Bayesian analysis of artist nationality
 #' probabilities for each quartile. The purpose of this is to use flat priors
 #' in order to fit a model and assess the distribution of coefficient values
-#' before using outputs as an informative
-#' prior in a predictive model
+#' before using outputs as an informative prior in a predictive model
 #' @import dplyr
 #' @import rstan
 #' @importFrom magrittr %>%
