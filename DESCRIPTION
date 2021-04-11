@@ -2,6 +2,7 @@ Package: hotteR
 Type: Package
 Title: Hottest 100 Countdown and Triple J Analysis in R
 Version: 0.1.2
+Date: 2021-04-11
 Authors@R: c(
   person("Trent", "Henderson", email = "trent.henderson1@outlook.com", role = c("cre", "aut")),
   person("Joy", "Horng", email = "joy.horng@nousgroup.com.au", role = "aut")

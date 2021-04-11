@@ -21,7 +21,7 @@ or from the included historical_countdowns dataframe.
 }
 \examples{
 \dontrun{
-do_countdown_analysis(historical_dountdowns)
+do_countdown_analysis(historical_countdowns)
 }
 
 }
