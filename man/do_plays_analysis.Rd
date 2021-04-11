@@ -17,6 +17,13 @@ Returns an object of class ggplot which contains a matrix of plots
 Function to produce a small analysis document for a given selection of song plays based on tweets
 This function should ideally take the dataframe output straight from hotteR::get_plays()
 }
+\examples{
+\dontrun{
+d <- get_plays(year = 2020)
+do_plays_analysis(d)
+}
+
+}
 \author{
 Trent Henderson
 }

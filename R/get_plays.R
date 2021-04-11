@@ -8,6 +8,10 @@
 #' @author Trent Henderson
 #' @export
 #' @param year The year of interest to pull tweets from - only current year is possible due to API limitations
+#' @examples
+#' \dontrun{
+#' get_plays(year = 2020)
+#' }
 #'
 
 get_plays <- function(year = 2020){

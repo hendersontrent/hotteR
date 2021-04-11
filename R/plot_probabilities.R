@@ -2,28 +2,31 @@
 #' Function to produce density plots of probability of belongingness by quartile and nationality
 #' @import dplyr
 #' @import ggplot2
-#' @importFrom hotteR historical_countdowns
 #' @importFrom magrittr %>%
 #' @importFrom janitor clean_names
 #' @param timescale a value of either ["Last Decade", "All Time"] indicating the timescale to calculate over
 #' @return an object of class `ggplot` which holds the matrix of density plots
 #' @author Trent Henderson
 #' @export
+#' @examples
+#' \dontrun{
+#' plot_probabilities(timescale = "Last Decade")
+#' }
 #'
 
 plot_probabilities <- function(timescale = c("Last Decade", "All Time")){
-  
+
   timescale_text <- timescale
   timescale <- match.arg(timescale)
-  
+
   message("Calculating probabilities...")
-  
+
   if(length(timescale) != 1){
     stop("timescale should be a single entry of either 'Last Decade' or 'All Time'")
   }
-  
+
   #------------ Aggregate historical data -----------------
-  
+
   tmp <- historical_countdowns %>%
     janitor::clean_names() %>%
     dplyr::mutate(indicator = case_when(
@@ -38,18 +41,18 @@ plot_probabilities <- function(timescale = c("Last Decade", "All Time")){
       rank > 75              ~ "Fourth Quartile")) %>%
     dplyr::mutate(nationality = ifelse(country == "Australia", "Australian", "International")) %>% # Buckets countries into binary
     dplyr::mutate(year = as.numeric(year))
-  
+
   if(timescale == "Last Decade"){
-    
+
     # Retrieve last decade of values
-    
+
     last_decade <- tmp %>%
       dplyr::select(c(year)) %>%
       dplyr::distinct() %>%
       dplyr::top_n(year, n = 10) # Makes it dynamic instead of hard coding and working backwards
-    
+
     # Aggregate over quartiles
-    
+
     tmp1 <- tmp %>%
       dplyr::filter(year %in% last_decade$year) %>%
       dplyr::group_by(year, nationality, quartile) %>%
@@ -58,9 +61,9 @@ plot_probabilities <- function(timescale = c("Last Decade", "All Time")){
       dplyr::mutate(probs = round(counter / sum(counter), digits = 3)) %>%
       dplyr::ungroup()
   }
-  
+
   if(timescale == "All Time"){
-    
+
     tmp1 <- tmp %>%
       dplyr::group_by(year, nationality, quartile) %>%
       dplyr::summarise(counter = n()) %>%
@@ -68,9 +71,9 @@ plot_probabilities <- function(timescale = c("Last Decade", "All Time")){
       dplyr::mutate(probs = round(counter / sum(counter), digits = 3)) %>%
       dplyr::ungroup()
   }
-  
+
   #------------ Render matrix of density plots ------------
-  
+
   p <- tmp1 %>%
     dplyr::mutate(quartile = factor(quartile, levels = c("First Quartile", "Second Quartile",
                                                          "Third Quartile", "Fourth Quartile"))) %>%

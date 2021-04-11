@@ -15,6 +15,12 @@ an object of class `ggplot` which holds the matrix of density plots
 \description{
 Function to produce density plots of probability of belongingness by quartile and nationality
 }
+\examples{
+\dontrun{
+plot_probabilities(timescale = "Last Decade")
+}
+
+}
 \author{
 Trent Henderson
 }

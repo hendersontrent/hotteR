@@ -13,6 +13,10 @@
 #' @author Trent Henderson
 #' @export
 #' @param data The dataframe of Hottest 100 results to analyse
+#' @examples
+#' \dontrun{
+#' do_countdown_analysis(historical_countdowns)
+#' }
 #'
 
 do_countdown_analysis <- function(data){
