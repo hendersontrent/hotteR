@@ -19,6 +19,12 @@ Function to produce a small analysis document for a given year's Hottest 100 Cou
 This function should ideally take the dataframe output straight from hotteR::get_countdowns()
 or from the included historical_countdowns dataframe.
 }
+\examples{
+\dontrun{
+do_countdown_analysis(historical_dountdowns)
+}
+
+}
 \author{
 Trent Henderson
 }

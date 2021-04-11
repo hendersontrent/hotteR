@@ -16,6 +16,12 @@ Function to webscrape historical Triple J Hottest 100 Countdown results
 and return a dataframe of cleaned results in an analysis-ready format. Note
 that this function is highly unstable due to the nature of RSelenium.
 }
+\examples{
+\dontrun{
+get_countdowns()
+}
+
+}
 \author{
 Joy Horng
 }

@@ -5,7 +5,10 @@ Hottest 100 Countdown and Triple J Analysis in R.
 
 ## Installation
 
-You can install `hotteR` from GitHub by running the following:
+*Coming to CRAN soon\!*
+
+You can install the development version of `hotteR` from GitHub by
+running the following:
 
 ``` r
 devtools::install_github("hendersontrent/hotteR")
@@ -72,6 +75,11 @@ Twitter account using the `get_plays()` one-line function. The data is
 cleaned, processed, and summed behind the scenes, leaving you more time
 to focus on analysis and data visualisation.
 
+*NOTE: This function uses access to the Twitter API and thus requires
+appropriate credentials to be available in the R Environment prior to
+running. The ‘twitteR’ package provides a useful setup\_twitter\_oauth()
+function for this.*
+
 ``` r
 play_data <- get_plays(year = 2020)
 ```
@@ -86,50 +94,6 @@ visualisations for data retrieved from `get_plays()` using
 play_data <- get_plays(year = 2020)
 do_plays_analysis(the_plays)
 ```
-
-### calculate\_priors()
-
-Bayesian functionality is built into the package given the annually
-updating nature of the Hottest 100 Countdown. All Bayesian functions
-have been coded in the probabilistic programming language `Stan` and
-abstracted away into a one line R function for ease of use. The first
-function is `calculate_priors()` which computes a mean, standard
-deviation (SD), 2.5% credible interval lower bound and 97.5% credible
-interval upper bound (together forming a 95% credible interval) for an
-ordinal logistic regression model of quartile placement in the Hottest
-100. The mean and SD calculated by this function can be used as
-informative priors in a predictive model. This function takes one of two
-timescales as an argument:
-
-  - “Last Decade”
-  - “All Time”
-
-<!-- end list -->
-
-``` r
-library(rstan)
-
-priors <- calculate_priors(timescale = "All Time")
-```
-
-### plot\_priors()
-
-As well as the formal value calculation of priors, a calculation and
-distribution visualisation function is also included as `plot_priors()`.
-This function produces a density plot of the coefficient for the
-nationality predictor variable. This function takes one of two
-timescales as an argument:
-
-  - “Last Decade”
-  - “All Time”
-
-<!-- end list -->
-
-``` r
-plot_prior(timescale = "All Time")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ### plot\_probabilities()
 
@@ -147,7 +111,7 @@ argument:
 plot_probabilities(timescale = "Last Decade")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ### plot\_quartile\_area()
 
@@ -158,7 +122,7 @@ nationality using `plot_quartile_area()`:
 plot_quartile_area()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ### theme\_hotteR()
 
@@ -170,7 +134,7 @@ used by default when the package is loaded.
 scales::show_col(hotteR:::hotteR_palette)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ## Further work
 

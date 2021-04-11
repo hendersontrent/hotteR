@@ -1,25 +1,22 @@
 Package: hotteR
 Type: Package
 Title: Hottest 100 Countdown and Triple J Analysis in R
-Version: 0.2.1
+Version: 0.1.2
 Authors@R: c(
   person("Trent", "Henderson", email = "trent.henderson1@outlook.com", role = c("cre", "aut")),
   person("Joy", "Horng", email = "joy.horng@nousgroup.com.au", role = "aut")
   )
 Maintainer: Trent Henderson <trent.henderson1@outlook.com>
-Description: Automates extraction of @triplejplays data and Hottest 100 Countdown 
-             analysis and provides high-level analysis and data visualisation of
-             the extracted data. Some functions in the package access the Twitter 
-             API and thus require appropriate credentials to be available in the 
-             R Environment prior to running. The 'twitteR' package provides a 
-             useful setup_twitter_oauth() function for this.
+Description: Automates extraction of @triplejplays Twitter song data and Hottest 100 Countdowns
+             and provides high-level analysis and data visualisation of the extracted data.
 BugReports: https://github.com/hendersontrent/hotteR/issues
-License: MIT
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends: 
     R (>= 3.5.0)
 Imports: 
+    data.table,
     dplyr, 
     magrittr,
     ggplot2,
@@ -30,6 +27,5 @@ Imports:
     ggpubr,
     janitor,
     rtweet,
-    RSelenium,
-    rstan
+    RSelenium
 RoxygenNote: 7.1.1

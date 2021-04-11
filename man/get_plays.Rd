@@ -15,6 +15,12 @@ Returns a clean and tidy dataframe of tweets from triplejplays in an aggregated 
 \description{
 Function to pull tweets from the 'triplejplays' Twitter account where plays are stored
 }
+\examples{
+\dontrun{
+get_plays(year = 2020)
+}
+
+}
 \author{
 Trent Henderson
 }

@@ -13,7 +13,9 @@ Hottest 100 Countdown and Triple J Analysis in R.
 
 ## Installation
 
-You can install `hotteR` from GitHub by running the following:
+*Coming to CRAN soon!*
+
+You can install the development version of `hotteR` from GitHub by running the following:
 
 ```{r eval = FALSE}
 devtools::install_github("hendersontrent/hotteR")
@@ -65,6 +67,8 @@ do_countdown_analysis(historical_countdowns)
 
 You can automatically pull summed counts of plays from the @triplejplays Twitter account using the `get_plays()` one-line function. The data is cleaned, processed, and summed behind the scenes, leaving you more time to focus on analysis and data visualisation.
 
+*NOTE: This function uses access to the Twitter API and thus requires appropriate credentials to be available in the R Environment prior to running. The 'twitteR' package provides a useful setup_twitter_oauth() function for this.*
+
 ```{r message = FALSE, eval = FALSE, warning = FALSE}
 play_data <- get_plays(year = 2020)
 ```
@@ -76,30 +80,6 @@ You can automatically get some high level analysis and data visualisations for d
 ```{r message = FALSE, eval = FALSE, warning = FALSE}
 play_data <- get_plays(year = 2020)
 do_plays_analysis(the_plays)
-```
-
-### calculate_priors()
-
-Bayesian functionality is built into the package given the annually updating nature of the Hottest 100 Countdown. All Bayesian functions have been coded in the probabilistic programming language `Stan` and abstracted away into a one line R function for ease of use. The first function is `calculate_priors()` which computes a mean, standard deviation (SD), 2.5% credible interval lower bound and 97.5% credible interval upper bound (together forming a 95% credible interval) for an ordinal logistic regression model of quartile placement in the Hottest 100. The mean and SD calculated by this function can be used as informative priors in a predictive model. This function takes one of two timescales as an argument:
-
-* "Last Decade"
-* "All Time"
-
-```{r message = FALSE, eval = FALSE, warning = FALSE}
-library(rstan)
-
-priors <- calculate_priors(timescale = "All Time")
-```
-
-### plot_priors()
-
-As well as the formal value calculation of priors, a calculation and distribution visualisation function is also included as `plot_priors()`. This function produces a density plot of the coefficient for the nationality predictor variable. This function takes one of two timescales as an argument:
-
-* "Last Decade"
-* "All Time"
-
-```{r warning = FALSE, message = FALSE, error = FALSE, results = 'hide', fig.keep = TRUE}
-plot_prior(timescale = "All Time")
 ```
 
 ### plot_probabilities()

@@ -13,6 +13,11 @@
 #' @author Trent Henderson
 #' @export
 #' @param data The dataframe of triplejplays data to analyse
+#' @examples
+#' \dontrun{
+#' d <- get_plays(year = 2020)
+#' do_plays_analysis(d)
+#' }
 #'
 
 do_plays_analysis <- function(data){

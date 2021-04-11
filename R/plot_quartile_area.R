@@ -2,12 +2,15 @@
 #' Function to calculate quartile time series composition for Australian artists and produce a stacked area graph
 #' @import dplyr
 #' @import ggplot2
-#' @importFrom hotteR historical_countdowns
 #' @importFrom magrittr %>%
 #' @importFrom janitor clean_names
 #' @return an object of class `ggplot` which is a stacked area graph
 #' @author Trent Henderson
 #' @export
+#' @examples
+#' \dontrun{
+#' plot_quartile_area(historical_countdowns)
+#' }
 #'
 
 plot_quartile_area <- function(){

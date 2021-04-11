@@ -12,6 +12,12 @@ an object of class `ggplot` which is a stacked area graph
 \description{
 Function to calculate quartile time series composition for Australian artists and produce a stacked area graph
 }
+\examples{
+\dontrun{
+plot_quartile_area(historical_countdowns)
+}
+
+}
 \author{
 Trent Henderson
 }
