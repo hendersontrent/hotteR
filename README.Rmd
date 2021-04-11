@@ -112,3 +112,11 @@ scales::show_col(hotteR:::hotteR_palette)
 ## Further work
 
 More functions are currently under development. Please check back soon!
+
+## Citation
+
+You can cite `hotteR` using the following:
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+citation("hotteR")
+```

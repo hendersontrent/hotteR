@@ -139,3 +139,24 @@ scales::show_col(hotteR:::hotteR_palette)
 ## Further work
 
 More functions are currently under development. Please check back soon\!
+
+## Citation
+
+You can cite `hotteR` using the following:
+
+``` 
+
+To cite package 'hotteR' in publications use:
+
+  Trent Henderson and Joy Horng (2021). hotteR: Hottest 100 Countdown
+  and Triple J Analysis in R. R package version 0.1.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {hotteR: Hottest 100 Countdown and Triple J Analysis in R},
+    author = {Trent Henderson and Joy Horng},
+    year = {2021},
+    note = {R package version 0.1.2},
+  }
+```
