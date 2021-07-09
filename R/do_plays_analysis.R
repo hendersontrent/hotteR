@@ -1,4 +1,3 @@
-#'
 #' Function to produce a small analysis document for a given selection of song plays based on tweets
 #' This function should ideally take the dataframe output straight from hotteR::get_plays()
 #'
@@ -9,10 +8,10 @@
 #' @importFrom stringr str_to_title
 #' @import ggplot2
 #' @importFrom ggpubr ggarrange
+#' @param data The dataframe of triplejplays data to analyse
 #' @return Returns an object of class ggplot which contains a matrix of plots
 #' @author Trent Henderson
 #' @export
-#' @param data The dataframe of triplejplays data to analyse
 #' @examples
 #' \dontrun{
 #' d <- get_plays(year = 2020)
@@ -60,7 +59,7 @@ do_plays_analysis <- function(data){
     dplyr::group_by(artist, song) %>%
     dplyr::summarise(plays = sum(plays)) %>%
     dplyr::group_by(artist) %>%
-    dplyr::summarise(number_of_songs = n()) %>%
+    dplyr::summarise(number_of_songs = dplyr::n()) %>%
     dplyr::ungroup()
 
   tmp_song_plays <- tmp %>%

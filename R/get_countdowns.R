@@ -27,7 +27,6 @@ extract_dropdown_options <- function(xpath){
 
 #------------------------- Core function ---------------------------
 
-#'
 #' Function to webscrape historical Triple J Hottest 100 Countdown results
 #' and return a dataframe of cleaned results in an analysis-ready format. Note
 #' that this function is highly unstable due to the nature of RSelenium.
@@ -51,9 +50,11 @@ get_countdowns <- function(){
   start_time <<- Sys.time()
 
   # Will take 1.5 hrs
+
   message("Webscraping Hottest 100 Countdown results... This may take up to 1.5 hours. You must have Chrome version 87.0.4280.88 and Java Development Kit installed. This function is somewhat unstable on Mac and may error out at a random year. Please consider accessing the built-in dataset of all historical countdowns `historical_countdowns` instead.")
 
   # Fire up Selenium ----
+
   rD <<- RSelenium::rsDriver(browser = "chrome", chromever = "87.0.4280.88", verbose = FALSE, port = 4444L)
   remDr <<- rD[['client']]
 
@@ -69,6 +70,7 @@ get_countdowns <- function(){
   store_here <- list()
 
   # Loop through each year ----
+
   for(yr in seq(2, 36)){
 
     tibble_triple_j <- tibble::tibble()
@@ -78,6 +80,7 @@ get_countdowns <- function(){
     print(glue::glue('====================== {this_year} ======================'))
 
     # Loop through the 20 countries to find songs for each year ----
+
     for(c in seq(2, 20)){
       RSelenium::click_element(glue::glue('//*[@id="main"]/div[3]/div/div/div[5]/label/select/option[{c}]'))
 
@@ -114,14 +117,17 @@ get_countdowns <- function(){
         if(skip_to_next){break()}
       }
     }
+
     # Final check that we've scraped 100 songs before we move on to the next year
+
     if(dplyr::nrow(dplyr::filter(tibble_triple_j, year == this_year)) != 100){
       stop("Didn't successfully scrape 100 songs for this year. Something must have gone wrong.")
     } else{
       print(glue::glue("===================================================="))
     }
     store_here[[yr-1]] <- tibble_triple_j %>% dplyr::arrange(rank)
-   }
+  }
+
    all_tibble_triple_j <- data.table::rbindlist(store_here, use.names = TRUE)
 
    fin_time <<- Sys.time()

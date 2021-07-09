@@ -1,4 +1,3 @@
-#'
 #' Function to produce a small analysis document for a given year's Hottest 100 Countdown
 #' This function should ideally take the dataframe output straight from hotteR::get_countdowns()
 #' or from the included historical_countdowns dataframe.
@@ -9,10 +8,10 @@
 #' @import ggplot2
 #' @importFrom ggpubr ggarrange
 #' @importFrom scales comma
+#' @param data The dataframe of Hottest 100 results to analyse
 #' @return Returns an object of class ggplot which contains a matrix of plots
 #' @author Trent Henderson
 #' @export
-#' @param data The dataframe of Hottest 100 results to analyse
 #' @examples
 #' \dontrun{
 #' do_countdown_analysis(historical_countdowns)
@@ -46,7 +45,7 @@ do_countdown_analysis <- function(data){
 
   p <- tmp %>%
     dplyr::group_by(country) %>%
-    dplyr::summarise(counter = n()) %>%
+    dplyr::summarise(counter = dplyr::n()) %>%
     dplyr::ungroup() %>%
     ggplot2::ggplot(aes(x = reorder(country, counter), y = counter)) +
     ggplot2::geom_bar(stat = "identity") +
@@ -61,7 +60,7 @@ do_countdown_analysis <- function(data){
 
   p1 <- tmp %>%
     dplyr::group_by(artist) %>%
-    dplyr::summarise(counter = n()) %>%
+    dplyr::summarise(counter = dplyr::n()) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(indicator = ifelse(counter > 10,artist,"Single")) %>%
     dplyr::filter(indicator != "Single") %>%
@@ -107,7 +106,7 @@ do_countdown_analysis <- function(data){
       dplyr::mutate(year = as.numeric(year)) %>%
       dplyr::mutate(country = ifelse(country == "Australia", "Australian", "International")) %>%
       dplyr::group_by(year, country) %>%
-      dplyr::summarise(counter = n()) %>%
+      dplyr::summarise(counter = dplyr::n()) %>%
       dplyr::group_by(year) %>%
       dplyr::mutate(props = (counter / sum(counter))*100) %>%
       dplyr::ungroup() %>%
