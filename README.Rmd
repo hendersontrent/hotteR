@@ -23,90 +23,12 @@ devtools::install_github("hendersontrent/hotteR")
 
 ## Motivation
 
-Previous analysis by [Orbisant Analytics](https://www.orbisantanalytics.com/hottest-100) highlighted interesting relationships in the 2019 Triple J Hottest 100 Countdown. This was a fairly discrete piece of analysis, and given the amount of manual work involved, motivated a more scalable and programmatic approach to enable future analysis.
+Previous analysis by [Orbisant Analytics](https://www.orbisantanalytics.com/hottest-100) highlighted interesting relationships in the 2019 Triple J Hottest 100 Countdown. This was a fairly discrete piece of analysis, and given the amount of manual work involved, motivated a more scalable and programmatic approach to enable future analysis. An example of analysis that is automated by the package includes the matrix of plots presented below.
 
-## Core functions
-
-### get_countdowns()
-
-You can webscrape all prior Hottest 100 Countdown results (including Hottest 100 of the decade) using `get_countdowns()`.
-
-```{r message = FALSE, eval = FALSE, warning = FALSE}
-library(hotteR)
-
-countdown_data <- get_countdowns()
-```
-
-### historical_countdowns
-
-A full dataset of all previous Hottest 100 Countdowns available to-date comes ready with the package. It has columns for rank, year, artist name, song name, and artist nationality.
-
-```{r message = FALSE, eval = FALSE, warning = FALSE}
-library(hotteR)
-
-historical_countdowns
-```
-
-### do_countdown_analysis()
-
-You can automatically get some high level analysis and data visualisations for data retrieved from `get_countdowns()` or `historical_countdowns` using `do_countdown_analysis()`.
-
-```{r message = FALSE, warning = FALSE, fig.keep = TRUE}
-library(dplyr)
-library(magrittr)
-library(janitor)
-library(ggplot2)
-library(scales)
-library(ggpubr)
+```{r message = FALSE, warning = FALSE, fig.keep = TRUE, echo = FALSE}
 library(hotteR)
 
 do_countdown_analysis(historical_countdowns)
-```
-
-### get_plays()
-
-You can automatically pull summed counts of plays from the @triplejplays Twitter account using the `get_plays()` one-line function. The data is cleaned, processed, and summed behind the scenes, leaving you more time to focus on analysis and data visualisation.
-
-*NOTE: This function uses access to the Twitter API and thus requires appropriate credentials to be available in the R Environment prior to running. The 'twitteR' package provides a useful setup_twitter_oauth() function for this.*
-
-```{r message = FALSE, eval = FALSE, warning = FALSE}
-play_data <- get_plays(year = 2020)
-```
-
-### do_plays_analysis()
-
-You can automatically get some high level analysis and data visualisations for data retrieved from `get_plays()` using `do_plays_analysis()`.
-
-```{r message = FALSE, eval = FALSE, warning = FALSE}
-play_data <- get_plays(year = 2020)
-do_plays_analysis(the_plays)
-```
-
-### plot_probabilities()
-
-You can automatically produce density plots of probability of belongingness by Hottest 100 Countdown quartile and nationality with `plot_probabilities()`. This function takes one of two timescales as an argument:
-
-* "Last Decade"
-* "All Time"
-
-```{r message = FALSE, warning = FALSE, fig.keep = TRUE}
-plot_probabilities(timescale = "Last Decade")
-```
-
-### plot_quartile_area()
-
-You can automatically produce time series area plots by quartile and nationality using `plot_quartile_area()`:
-
-```{r message = FALSE, warning = FALSE, fig.keep = TRUE}
-plot_quartile_area()
-```
-
-### theme_hotteR()
-
-As well as data scraping and analysis functions, `hotteR` also provides a distinct and striking contrasting colour palette that is called and used by default when the package is loaded.
-
-```{r message = FALSE}
-scales::show_col(hotteR:::hotteR_palette)
 ```
 
 ## Further work

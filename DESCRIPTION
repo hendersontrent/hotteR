@@ -1,15 +1,15 @@
 Package: hotteR
 Type: Package
 Title: Hottest 100 Countdown and Triple J Analysis in R
-Version: 0.1.2
-Date: 2021-04-11
+Version: 0.1.3
+Date: 2021-07-09
 Authors@R: c(
   person("Trent", "Henderson", email = "trent.henderson1@outlook.com", role = c("cre", "aut")),
   person("Joy", "Horng", email = "joy.horng@nousgroup.com.au", role = "aut")
   )
 Maintainer: Trent Henderson <trent.henderson1@outlook.com>
-Description: Automates extraction of @triplejplays Twitter song data and Hottest 100 Countdowns
-             and provides high-level analysis and data visualisation of the extracted data.
+Description: Automates extraction, analysis, and visualisation of triplejplays 
+    Twitter song data and official Hottest 100 Countdown results.
 BugReports: https://github.com/hendersontrent/hotteR/issues
 License: GPL-3
 Encoding: UTF-8
@@ -29,4 +29,9 @@ Imports:
     janitor,
     rtweet,
     RSelenium
+Suggests:
+    knitr,
+    markdown,
+    rmarkdown
 RoxygenNote: 7.1.1
+VignetteBuilder: knitr

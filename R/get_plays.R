@@ -1,13 +1,12 @@
-#'
 #' Function to pull tweets from the 'triplejplays' Twitter account where plays are stored
 #'
 #' @import dplyr
 #' @import rtweet
 #' @importFrom magrittr %>%
+#' @param year The year of interest to pull tweets from - only current year is possible due to API limitations
 #' @return Returns a clean and tidy dataframe of tweets from triplejplays in an aggregated format ready for visualisation
 #' @author Trent Henderson
 #' @export
-#' @param year The year of interest to pull tweets from - only current year is possible due to API limitations
 #' @examples
 #' \dontrun{
 #' get_plays(year = 2020)
