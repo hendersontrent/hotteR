@@ -10,7 +10,7 @@ do_plays_analysis(the_plays)
 
 #------------- get_countdowns() --------------------
 
-get_countdowns()
+#get_countdowns()
 
 #------------- do_countdown_analysis() -------------
 
