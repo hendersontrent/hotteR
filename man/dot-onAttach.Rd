@@ -2,10 +2,18 @@
 % Please edit documentation in R/zzz.R
 \name{.onAttach}
 \alias{.onAttach}
-\title{Sets default geom colours to be compliant with The Runoff branding}
+\title{Sets default geom colours to be compliant with hotteR palette}
 \usage{
 .onAttach(libname, pkgname)
 }
+\arguments{
+\item{libname}{the data library name}
+
+\item{pkgname}{the package name}
+}
+\value{
+default theme for ggplot
+}
 \description{
-Sets default geom colours to be compliant with The Runoff branding
+Sets default geom colours to be compliant with hotteR palette
 }

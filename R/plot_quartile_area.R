@@ -4,7 +4,8 @@
 #' @import ggplot2
 #' @importFrom magrittr %>%
 #' @importFrom janitor clean_names
-#' @return an object of class `ggplot` which is a stacked area graph
+#' @param data The dataframe of Hottest 100 results to analyse
+#' @return an object of class ggplot which is a stacked area graph
 #' @author Trent Henderson
 #' @export
 #' @examples
@@ -13,11 +14,11 @@
 #' }
 #'
 
-plot_quartile_area <- function(){
+plot_quartile_area <- function(data = historical_countdowns){
 
   # Initial aggregation
 
-  tmp <- historical_countdowns %>%
+  tmp <- data %>%
     janitor::clean_names() %>%
     dplyr::mutate(indicator = dplyr::case_when(
       grepl(" ", year) ~ "Remove",

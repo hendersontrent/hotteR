@@ -27,10 +27,10 @@ library(hotteR)
 
 ### get_countdowns()
 
-You can webscrape all prior Hottest 100 Countdown results (including Hottest 100 of the decade) using `get_countdowns()`. Note that you must have Chrome version 87.0.4280.88 and Java Development Kit installed. This function is somewhat unstable on Mac and may error out at a random year due to some known issues with `RSelenium`.
+You can webscrape all prior Hottest 100 Countdown results (including Hottest 100 of the decade) using `get_countdowns()`. Note that you must have Chrome version 87.0.4280.88 and Java Development Kit installed. This function is somewhat unstable on Mac and may error out at a random year due to some known issues with `RSelenium`. This function has a single argument `sleep` which is an integer that denotes that break time between iterations to stop `RSelenium` from crashing.
 
 ```{r message = FALSE, eval = FALSE, warning = FALSE}
-countdown_data <- get_countdowns()
+countdown_data <- get_countdowns(sleep = 1)
 ```
 
 ### historical_countdowns
@@ -46,7 +46,7 @@ head(historical_countdowns)
 You can automatically get some high level analysis and data visualisations for data retrieved from `get_countdowns()` or `historical_countdowns` using `do_countdown_analysis()`.
 
 ```{r message = FALSE, warning = FALSE, fig.keep = TRUE}
-do_countdown_analysis(historical_countdowns)
+do_countdown_analysis(data = historical_countdowns)
 ```
 
 ### get_plays()
@@ -78,7 +78,7 @@ You can automatically produce density plots of probability of membership for eac
 An example for "Last Decade" is shown below.
 
 ```{r message = FALSE, warning = FALSE, fig.keep = TRUE}
-plot_probabilities(timescale = "Last Decade")
+plot_probabilities(data = historical_countdowns, timescale = "Last Decade")
 ```
 
 ### plot_quartile_area()
@@ -86,7 +86,7 @@ plot_probabilities(timescale = "Last Decade")
 You can automatically produce time series area plots by quartile and nationality using `plot_quartile_area()`:
 
 ```{r message = FALSE, warning = FALSE, fig.keep = TRUE}
-plot_quartile_area()
+plot_quartile_area(data = historical_countdowns)
 ```
 
 ### theme_hotteR()

@@ -19,7 +19,7 @@
 #' }
 #'
 
-do_countdown_analysis <- function(data){
+do_countdown_analysis <- function(data = historical_countdowns){
 
   message("Running analysis...")
 
