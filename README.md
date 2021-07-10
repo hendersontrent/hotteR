@@ -36,7 +36,7 @@ To cite package 'hotteR' in publications use:
 
   Trent Henderson and Joy Horng (2021). hotteR: Hottest 100 Countdown
   and Triple J Plays Webscraping and Analysis in R. R package version
-  0.1.5.
+  0.1.6.
 
 A BibTeX entry for LaTeX users is
 
@@ -44,6 +44,6 @@ A BibTeX entry for LaTeX users is
     title = {hotteR: Hottest 100 Countdown and Triple J Plays Webscraping and Analysis in R},
     author = {Trent Henderson and Joy Horng},
     year = {2021},
-    note = {R package version 0.1.5},
+    note = {R package version 0.1.6},
   }
 ```

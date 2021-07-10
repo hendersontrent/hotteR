@@ -2,18 +2,23 @@
 % Please edit documentation in R/plot_probabilities.R
 \name{plot_probabilities}
 \alias{plot_probabilities}
-\title{Function to produce density plots of probability of belongingness by quartile and nationality}
+\title{Function to produce density plots of probability of membership by quartile and nationality}
 \usage{
-plot_probabilities(timescale = c("Last Decade", "All Time"))
+plot_probabilities(
+  data = historical_countdowns,
+  timescale = c("Last Decade", "All Time")
+)
 }
 \arguments{
-\item{timescale}{a value of either ["Last Decade", "All Time"] indicating the timescale to calculate over}
+\item{data}{The dataframe of Hottest 100 results to analyse}
+
+\item{timescale}{a value of either "Last Decade" or "All Time" indicating the timescale to calculate over}
 }
 \value{
-an object of class `ggplot` which holds the matrix of density plots
+an object of class ggpot which holds the matrix of density plots
 }
 \description{
-Function to produce density plots of probability of belongingness by quartile and nationality
+Function to produce density plots of probability of membership by quartile and nationality
 }
 \examples{
 \dontrun{

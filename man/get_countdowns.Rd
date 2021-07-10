@@ -6,7 +6,10 @@
 and return a dataframe of cleaned results in an analysis-ready format. Note
 that this function is highly unstable due to the nature of RSelenium.}
 \usage{
-get_countdowns()
+get_countdowns(sleep = 1)
+}
+\arguments{
+\item{sleep}{an integer specifying the amount of computer sleep time befoere each RSelenium iteration}
 }
 \value{
 a dataframe of results for all years in a tidy format
@@ -18,7 +21,7 @@ that this function is highly unstable due to the nature of RSelenium.
 }
 \examples{
 \dontrun{
-get_countdowns()
+get_countdowns(sleep = 1)
 }
 
 }

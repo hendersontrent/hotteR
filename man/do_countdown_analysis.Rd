@@ -6,7 +6,7 @@
 This function should ideally take the dataframe output straight from hotteR::get_countdowns()
 or from the included historical_countdowns dataframe.}
 \usage{
-do_countdown_analysis(data)
+do_countdown_analysis(data = historical_countdowns)
 }
 \arguments{
 \item{data}{The dataframe of Hottest 100 results to analyse}

@@ -4,10 +4,13 @@
 \alias{plot_quartile_area}
 \title{Function to calculate quartile time series composition for Australian artists and produce a stacked area graph}
 \usage{
-plot_quartile_area()
+plot_quartile_area(data = historical_countdowns)
+}
+\arguments{
+\item{data}{The dataframe of Hottest 100 results to analyse}
 }
 \value{
-an object of class `ggplot` which is a stacked area graph
+an object of class ggplot which is a stacked area graph
 }
 \description{
 Function to calculate quartile time series composition for Australian artists and produce a stacked area graph

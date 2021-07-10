@@ -1,6 +1,10 @@
+#' Sets default geom colours to be compliant with hotteR palette
 #'
-#' Sets default geom colours to be compliant with The Runoff branding
+#' @importFrom graphics text
 #' @importFrom ggplot2 update_geom_defaults theme_set
+#' @param libname the data library name
+#' @param pkgname the package name
+#' @return default theme for ggplot
 #'
 
 .onAttach <- function(libname, pkgname) {
@@ -28,5 +32,4 @@
   ggplot2::theme_set(theme_hotteR())
 
   invisible()
-
 }

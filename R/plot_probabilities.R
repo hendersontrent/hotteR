@@ -1,11 +1,12 @@
 #'
-#' Function to produce density plots of probability of belongingness by quartile and nationality
+#' Function to produce density plots of probability of membership by quartile and nationality
 #' @import dplyr
 #' @import ggplot2
 #' @importFrom magrittr %>%
 #' @importFrom janitor clean_names
-#' @param timescale a value of either ["Last Decade", "All Time"] indicating the timescale to calculate over
-#' @return an object of class `ggplot` which holds the matrix of density plots
+#' @param data The dataframe of Hottest 100 results to analyse
+#' @param timescale a value of either "Last Decade" or "All Time" indicating the timescale to calculate over
+#' @return an object of class ggpot which holds the matrix of density plots
 #' @author Trent Henderson
 #' @export
 #' @examples
@@ -14,12 +15,23 @@
 #' }
 #'
 
-plot_probabilities <- function(timescale = c("Last Decade", "All Time")){
+plot_probabilities <- function(data = historical_countdowns, timescale = c("Last Decade", "All Time")){
+
+  # Make All Time the default
+
+  if(missing(timescale)){
+    timescale <- "All Time"
+  } else{
+    timescale <- match.arg(timescale)
+  }
 
   timescale_text <- timescale
-  timescale <- match.arg(timescale)
+  timescales <- c("Last Decade", "All Time")
+  '%ni%' <- Negate('%in%')
 
-  message("Calculating probabilities...")
+  if(timescale %ni% timescales){
+    stop("timescale should be a single entry of either 'Last Decade' or 'All Time'")
+  }
 
   if(length(timescale) != 1){
     stop("timescale should be a single entry of either 'Last Decade' or 'All Time'")
@@ -27,7 +39,9 @@ plot_probabilities <- function(timescale = c("Last Decade", "All Time")){
 
   #------------ Aggregate historical data -----------------
 
-  tmp <- historical_countdowns %>%
+  message("Calculating probabilities...")
+
+  tmp <- data %>%
     janitor::clean_names() %>%
     dplyr::mutate(indicator = dplyr::case_when(
       grepl(" ", year) ~ "Remove",

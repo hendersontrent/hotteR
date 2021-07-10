@@ -37,16 +37,25 @@ extract_dropdown_options <- function(MyremDr, xpath){
 #' @import RSelenium
 #' @import stringr
 #' @importFrom data.table rbindlist
+#' @param sleep an integer specifying the amount of computer sleep time befoere each RSelenium iteration
 #' @return a dataframe of results for all years in a tidy format
 #' @author Joy Horng
 #' @export
 #' @examples
 #' \dontrun{
-#' get_countdowns()
+#' get_countdowns(sleep = 1)
 #' }
 #'
 
-get_countdowns <- function(){
+get_countdowns <- function(sleep = 1){
+
+  #--------------------- Arg checks ------------------
+
+  if(!is.numeric(sleep)){
+    stop("sleep should be an integer specifying the amount of sleep time before RSelenium iterations.")
+  }
+
+  #--------------------- Webscraper ------------------
 
   start_time <<- Sys.time()
 
@@ -88,7 +97,7 @@ get_countdowns <- function(){
       this_country <- country_list[c-1]
       print(glue::glue('Now on {this_country} ...'))
 
-      Sys.sleep(1) # I think moving too fast breaks Selenium... so build in some sleeping time
+      Sys.sleep(sleep) # I think moving too fast breaks Selenium... so build in some sleeping time
 
       for(i in seq(1:100)){ # each country can at most have 100 songs
 
