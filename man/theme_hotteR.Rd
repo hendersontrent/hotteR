@@ -6,6 +6,9 @@
 \usage{
 theme_hotteR(grids = FALSE)
 }
+\arguments{
+\item{grids}{a Boolean of whether to plot gridlines or not. Defaults to FALSE}
+}
 \description{
 Style general plot features according to the hotteR theme
 }

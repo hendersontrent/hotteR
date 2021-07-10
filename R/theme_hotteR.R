@@ -46,6 +46,7 @@ scale_fill_hotteR <- function(...) {
 
 #' Style general plot features according to the hotteR theme
 #'
+#' @param grids a Boolean of whether to plot gridlines or not. Defaults to FALSE
 #' @rdname theme_hotteR
 #' @export
 

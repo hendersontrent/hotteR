@@ -2,6 +2,7 @@
 #' This function should ideally take the dataframe output straight from hotteR::get_countdowns()
 #' or from the included historical_countdowns dataframe.
 #'
+#' @importFrom stats reorder
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @importFrom janitor clean_names
@@ -47,7 +48,7 @@ do_countdown_analysis <- function(data){
     dplyr::group_by(country) %>%
     dplyr::summarise(counter = dplyr::n()) %>%
     dplyr::ungroup() %>%
-    ggplot2::ggplot(ggplot2::aes(x = reorder(country, counter), y = counter)) +
+    ggplot2::ggplot(ggplot2::aes(x = stats::reorder(country, counter), y = counter)) +
     ggplot2::geom_bar(stat = "identity") +
     ggplot2::labs(title = "Country breakdown",
                   x = "Country",
