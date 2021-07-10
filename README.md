@@ -5,8 +5,6 @@ Hottest 100 Countdown and Triple J Plays Webscraping and Analysis in R
 
 ## Installation
 
-*Coming to CRAN soon\!*
-
 You can install the development version of `hotteR` from GitHub by
 running the following:
 
