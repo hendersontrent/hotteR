@@ -1,13 +1,13 @@
 #------------------------- Helper functions ------------------------
 
-extract_element_text <- function(xpath){
-  x <- remDr$findElement(using = "xpath", value = xpath)
+extract_element_text <- function(MyremDr, xpath){
+  x <- MyremDr$findElement(using = "xpath", value = xpath)
   x <- x$getElementText()[[1]]
   return(x)
 }
 
-click_element <- function(xpath){
-  x <- remDr$findElement(using = 'xpath', value = xpath)
+click_element <- function(MyremDr, xpath){
+  x <- MyremDr$findElement(using = 'xpath', value = xpath)
   x$clickElement()
 }
 
@@ -19,8 +19,8 @@ clean_html_str <- function(str){
   return(x)
 }
 
-extract_dropdown_options <- function(xpath){
-  x <- remDr$findElement(using = 'xpath', value = xpath)
+extract_dropdown_options <- function(MyremDr, xpath){
+  x <- MyremDr$findElement(using = 'xpath', value = xpath)
   return(x$getElementAttribute("outerHTML")[[1]] %>%
            clean_html_str())
 }
@@ -65,8 +65,8 @@ get_countdowns <- function(){
              error = function(e){}) # catch timeout error
   })
 
-  country_list <- RSelenium::extract_dropdown_options('//*[@id="main"]/div[3]/div/div/div[5]/label/select')
-  year_list <- RSelenium::extract_dropdown_options('//*[@id="main"]/div[3]/div/div/div[1]/label/select')
+  country_list <- extract_dropdown_options(MyremDr = remDr, '//*[@id="main"]/div[3]/div/div/div[5]/label/select')
+  year_list <- extract_dropdown_options(MyremDr = remDr, '//*[@id="main"]/div[3]/div/div/div[1]/label/select')
 
   store_here <- list()
 
@@ -76,14 +76,14 @@ get_countdowns <- function(){
 
     tibble_triple_j <- tibble::tibble()
 
-    RSelenium::click_element(glue::glue('//*[@id="main"]/div[3]/div/div/div[1]/label/select/option[{yr}]'))
+    click_element(MyremDr = remDr, glue::glue('//*[@id="main"]/div[3]/div/div/div[1]/label/select/option[{yr}]'))
     this_year <- year_list[yr-1]
     print(glue::glue('====================== {this_year} ======================'))
 
     # Loop through the 20 countries to find songs for each year ----
 
     for(c in seq(2, 20)){
-      RSelenium::click_element(glue::glue('//*[@id="main"]/div[3]/div/div/div[5]/label/select/option[{c}]'))
+      click_element(glue::glue('//*[@id="main"]/div[3]/div/div/div[5]/label/select/option[{c}]'))
 
       this_country <- country_list[c-1]
       print(glue::glue('Now on {this_country} ...'))
@@ -96,9 +96,9 @@ get_countdowns <- function(){
 
         suppressMessages({
           tryCatch({
-            rank <- RSelenium::extract_element_text(glue::glue('//*[@id="main"]/div[4]/div/table/tbody/tr[{i}]/td[2]'))
-            artist <- RSelenium::extract_element_text(glue::glue('//*[@id="main"]/div[4]/div/table/tbody/tr[{i}]/td[3]'))
-            song <- RSelenium::extract_element_text(glue::glue('//*[@id="main"]/div[4]/div/table/tbody/tr[{i}]/td[4]'))
+            rank <- extract_element_text(MyremDr = remDr, glue::glue('//*[@id="main"]/div[4]/div/table/tbody/tr[{i}]/td[2]'))
+            artist <- extract_element_text(MyremDr = remDr, glue::glue('//*[@id="main"]/div[4]/div/table/tbody/tr[{i}]/td[3]'))
+            song <- extract_element_text(MyremDr = remDr, glue::glue('//*[@id="main"]/div[4]/div/table/tbody/tr[{i}]/td[4]'))
             if(rank == ""){
               print(glue::glue("No songs for {this_country}. Move on."))
               break() # if no song, move on to next country
@@ -121,7 +121,7 @@ get_countdowns <- function(){
 
     # Final check that we've scraped 100 songs before we move on to the next year
 
-    if(dplyr::nrow(dplyr::filter(tibble_triple_j, year == this_year)) != 100){
+    if(nrow(dplyr::filter(tibble_triple_j, year == this_year)) != 100){
       stop("Didn't successfully scrape 100 songs for this year. Something must have gone wrong.")
     } else{
       print(glue::glue("===================================================="))

@@ -3,4 +3,10 @@
 \docType{package}
 \name{hotteR}
 \alias{hotteR}
-\title{Hottest 100 Countdown and Triple J Analysis in R}
+\title{Hottest 100 Countdown and Triple J Plays Webscraping and Analysis in R}
+\description{
+Hottest 100 Countdown and Triple J Plays Webscraping and Analysis in R
+}
+\details{
+Hottest 100 Countdown and Triple J Analysis in R
+}

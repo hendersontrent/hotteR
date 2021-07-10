@@ -1,7 +1,7 @@
 Package: hotteR
 Type: Package
 Title: Hottest 100 Countdown and Triple J Plays Webscraping and Analysis in R
-Version: 0.1.4
+Version: 0.1.5
 Date: 2021-07-10
 Authors@R: c(
   person("Trent", "Henderson", email = "trent.henderson1@outlook.com", role = c("cre", "aut")),
@@ -17,6 +17,7 @@ LazyData: true
 Depends: 
     R (>= 3.5.0)
 Imports: 
+    stats,
     data.table,
     dplyr, 
     tibble,
