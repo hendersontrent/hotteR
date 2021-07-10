@@ -26,7 +26,7 @@ do_countdown_analysis <- function(data){
 
   tmp <- data %>%
     janitor::clean_names() %>%
-    dplyr::mutate(indicator = case_when(
+    dplyr::mutate(indicator = dplyr::case_when(
       grepl(" ", year) ~ "Remove",
       TRUE             ~ "Keep")) %>%
     dplyr::filter(indicator == "Keep") %>% # Remove specialist Countdowns (e.g. Of The Decade, All-Time)
@@ -47,7 +47,7 @@ do_countdown_analysis <- function(data){
     dplyr::group_by(country) %>%
     dplyr::summarise(counter = dplyr::n()) %>%
     dplyr::ungroup() %>%
-    ggplot2::ggplot(aes(x = reorder(country, counter), y = counter)) +
+    ggplot2::ggplot(ggplot2::aes(x = reorder(country, counter), y = counter)) +
     ggplot2::geom_bar(stat = "identity") +
     ggplot2::labs(title = "Country breakdown",
                   x = "Country",
@@ -67,7 +67,7 @@ do_countdown_analysis <- function(data){
     dplyr::group_by(indicator) %>%
     dplyr::summarise(counter = sum(counter)) %>%
     dplyr::ungroup() %>%
-    ggplot2::ggplot(aes(x = reorder(indicator, counter), y = counter)) +
+    ggplot2::ggplot(ggplot2::aes(x = reorder(indicator, counter), y = counter)) +
     ggplot2::geom_bar(stat = "identity") +
     ggplot2::labs(title = "Artists with > 10 songs",
                   x = "Artist",
@@ -86,8 +86,8 @@ do_countdown_analysis <- function(data){
   p2 <- tmp %>%
     dplyr::mutate(country = ifelse(country == "Australia", "Australian", "International")) %>%
     dplyr::mutate(decade = ifelse(year %in% most_recent$year, "Last Countdown", "Prior Countdowns")) %>%
-    ggplot2::ggplot(aes(x = country, y = rank)) +
-    ggplot2::geom_boxplot(aes(fill = country), alpha = 0.7, outlier.shape = NA, colour = "#331a38") +
+    ggplot2::ggplot(ggplot2::aes(x = country, y = rank)) +
+    ggplot2::geom_boxplot(ggplot2::aes(fill = country), alpha = 0.7, outlier.shape = NA, colour = "#331a38") +
     ggplot2::labs(title = "Rank distribution",
                   x = "Artist nationality",
                   y = "Hottest 100 rank",
@@ -110,8 +110,8 @@ do_countdown_analysis <- function(data){
       dplyr::group_by(year) %>%
       dplyr::mutate(props = (counter / sum(counter))*100) %>%
       dplyr::ungroup() %>%
-      ggplot2::ggplot(aes(x = year, y = props)) +
-      ggplot2::geom_line(aes(colour = country), stat = "identity", size = 1) +
+      ggplot2::ggplot(ggplot2::aes(x = year, y = props)) +
+      ggplot2::geom_line(ggplot2::aes(colour = country), stat = "identity", size = 1) +
       ggplot2::labs(title = "Time series of nationality",
                     x = "Year",
                     y = "Percentage of songs",

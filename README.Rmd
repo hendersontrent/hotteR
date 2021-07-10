@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 comment = NA, fig.width = 12, fig.height = 8, cache = FALSE)
 ```
 
-Hottest 100 Countdown and Triple J Analysis in R.
+Hottest 100 Countdown and Triple J Plays Webscraping and Analysis in R
 
 ## Installation
 
@@ -30,10 +30,6 @@ library(hotteR)
 
 do_countdown_analysis(historical_countdowns)
 ```
-
-## Further work
-
-More functions are currently under development. Please check back soon!
 
 ## Citation
 
