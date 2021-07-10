@@ -5,6 +5,7 @@
 #'
 #' @importFrom data.table rbindlist
 #' @import dplyr
+#' @import tibble
 #' @importFrom magrittr %>%
 #' @importFrom janitor clean_names
 #' @import ggplot2

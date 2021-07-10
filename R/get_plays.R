@@ -37,7 +37,7 @@ get_plays <- function(year = 2020){
     dplyr::select(c(created_at, text)) %>%
     dplyr::mutate(created_at_short = gsub(" ", "\\1", created_at)) %>% # Just for easy filtering
     dplyr::mutate(created_at_short = as.Date(created_at_short)) %>%
-    dplyr::mutate(indicator = case_when(
+    dplyr::mutate(indicator = dplyr::case_when(
            created_at_short > as.Date(eligibility_open, format = "%d-%m-%Y") &
              created_at_short < as.Date(eligibility_deadline, format = "%d-%m-%Y") ~ "Keep",
            TRUE                                                                    ~ "Remove")) %>%
@@ -73,7 +73,7 @@ get_plays <- function(year = 2020){
   tmp2 <- bind_rows(parse_tags, parse_no_tags) %>%
     dplyr::mutate(hottest_100_year = year) %>%
     dplyr::group_by(hottest_100_year, artist, song) %>%
-    dplyr::summarise(plays = n()) %>%
+    dplyr::summarise(plays = dplyr::n()) %>%
     dplyr::ungroup()
 
   if(nrow(tmp2) < 1){

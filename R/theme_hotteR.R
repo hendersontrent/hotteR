@@ -71,8 +71,8 @@ theme_hotteR <- function(grids = FALSE){
                    strip.text = ggplot2::element_text(colour = "#331a38"))
   if(grids){
     the_theme <- the_theme +
-      ggplot2::theme(panel.grid.minor.x = element_blank(),
-                     panel.grid.minor.y = element_blank(),
+      ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank(),
+                     panel.grid.minor.y = ggplot2::element_blank(),
                      panel.grid.major = ggplot2::element_line(colour = "white"))
   }
   return(the_theme)

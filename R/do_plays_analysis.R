@@ -44,7 +44,7 @@ do_plays_analysis <- function(data){
     dplyr::summarise(plays = sum(plays)) %>%
     dplyr::ungroup() %>%
     dplyr::top_n(15, plays) %>%
-    ggplot2::ggplot(aes(x = reorder(artist, plays), y = plays)) +
+    ggplot2::ggplot(ggplot2::aes(x = reorder(artist, plays), y = plays)) +
     ggplot2::geom_bar(stat = "identity") +
     ggplot2::labs(title = "Top 15 artists by plays",
                   subtitle = paste0("There was a total of ",sum(tmp$plays)," plays analysed."),
@@ -78,7 +78,7 @@ do_plays_analysis <- function(data){
   }
 
   p1 <- tmp_song %>%
-    ggplot2::ggplot(aes(x = log(value))) +
+    ggplot2::ggplot(ggplot2::aes(x = log(value))) +
     ggplot2::geom_density() +
     ggplot2::labs(title = "All artists-by-song distributional breakdown",
                   x = "log(value)",

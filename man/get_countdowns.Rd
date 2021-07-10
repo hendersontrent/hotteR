@@ -9,7 +9,7 @@ that this function is highly unstable due to the nature of RSelenium.}
 get_countdowns()
 }
 \value{
-Dataframe of results for all years in a tidy format
+a dataframe of results for all years in a tidy format
 }
 \description{
 Function to webscrape historical Triple J Hottest 100 Countdown results

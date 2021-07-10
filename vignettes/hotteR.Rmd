@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 library(hotteR)
 ```
 
-`hotteR` is an R package that enables automated analysis of the [Triple J Hottest 100](https://www.abc.net.au/triplej/hottest100/20/) and [triplejplays](https://twitter.com/triplejplays) data in R.
+`hotteR` is an R package that enables automated webscraping, processing, analysis, and visualisation of the [Triple J Hottest 100](https://www.abc.net.au/triplej/hottest100/20/) and [triplejplays](https://twitter.com/triplejplays) data in R.
 
 ## Core functions
 

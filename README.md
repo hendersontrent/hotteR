@@ -1,7 +1,7 @@
 
 # hotteR <img src="man/figures/logo.png" align="right" width="120" />
 
-Hottest 100 Countdown and Triple J Analysis in R.
+Hottest 100 Countdown and Triple J Plays Webscraping and Analysis in R
 
 ## Installation
 
@@ -26,10 +26,6 @@ automated by the package includes the matrix of plots presented below.
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-## Further work
-
-More functions are currently under development. Please check back soon\!
-
 ## Citation
 
 You can cite `hotteR` using the following:
@@ -39,14 +35,15 @@ You can cite `hotteR` using the following:
 To cite package 'hotteR' in publications use:
 
   Trent Henderson and Joy Horng (2021). hotteR: Hottest 100 Countdown
-  and Triple J Analysis in R. R package version 0.1.2.
+  and Triple J Plays Webscraping and Analysis in R. R package version
+  0.1.4.
 
 A BibTeX entry for LaTeX users is
 
   @Manual{,
-    title = {hotteR: Hottest 100 Countdown and Triple J Analysis in R},
+    title = {hotteR: Hottest 100 Countdown and Triple J Plays Webscraping and Analysis in R},
     author = {Trent Henderson and Joy Horng},
     year = {2021},
-    note = {R package version 0.1.2},
+    note = {R package version 0.1.4},
   }
 ```

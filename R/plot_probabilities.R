@@ -29,12 +29,12 @@ plot_probabilities <- function(timescale = c("Last Decade", "All Time")){
 
   tmp <- historical_countdowns %>%
     janitor::clean_names() %>%
-    dplyr::mutate(indicator = case_when(
+    dplyr::mutate(indicator = dplyr::case_when(
       grepl(" ", year) ~ "Remove",
       TRUE             ~ "Keep")) %>%
     dplyr::filter(indicator == "Keep") %>% # Remove specialist Countdowns (e.g. Of The Decade, All-Time)
     dplyr::select(-c(indicator)) %>%
-    dplyr::mutate(quartile = case_when(
+    dplyr::mutate(quartile = dplyr::case_when(
       rank <= 25             ~ "First Quartile", # Computes 4 quantiles to group rankings by
       rank > 25 & rank <= 50 ~ "Second Quartile",
       rank > 50 & rank <= 75 ~ "Third Quartile",
@@ -56,7 +56,7 @@ plot_probabilities <- function(timescale = c("Last Decade", "All Time")){
     tmp1 <- tmp %>%
       dplyr::filter(year %in% last_decade$year) %>%
       dplyr::group_by(year, nationality, quartile) %>%
-      dplyr::summarise(counter = n()) %>%
+      dplyr::summarise(counter = dplyr::n()) %>%
       dplyr::group_by(year, quartile) %>%
       dplyr::mutate(probs = round(counter / sum(counter), digits = 3)) %>%
       dplyr::ungroup()
@@ -66,7 +66,7 @@ plot_probabilities <- function(timescale = c("Last Decade", "All Time")){
 
     tmp1 <- tmp %>%
       dplyr::group_by(year, nationality, quartile) %>%
-      dplyr::summarise(counter = n()) %>%
+      dplyr::summarise(counter = dplyr::n()) %>%
       dplyr::group_by(year, quartile) %>%
       dplyr::mutate(probs = round(counter / sum(counter), digits = 3)) %>%
       dplyr::ungroup()
@@ -77,14 +77,14 @@ plot_probabilities <- function(timescale = c("Last Decade", "All Time")){
   p <- tmp1 %>%
     dplyr::mutate(quartile = factor(quartile, levels = c("First Quartile", "Second Quartile",
                                                          "Third Quartile", "Fourth Quartile"))) %>%
-    ggplot2::ggplot(aes(x = probs)) +
-    ggplot2::geom_density(aes(fill = nationality), alpha = 0.4, colour = "#331a38") +
+    ggplot2::ggplot(ggplot2::aes(x = probs)) +
+    ggplot2::geom_density(ggplot2::aes(fill = nationality), alpha = 0.4, colour = "#331a38") +
     ggplot2::labs(title = "Probabilities of nationality by quartile",
                   subtitle = "First Quartile = Rank 1-25, Fourth Quartile = Rank 76-100",
                   x = "Probability",
                   y = "Density",
                   fill = "Artist nationality",
-                  caption = paste0("Timescale = ",timescale_text)) +
+                  caption = paste0("Timescale = ", timescale_text)) +
     ggplot2::scale_x_continuous(limits = c(0,1),
                                 breaks = seq(from = 0, to = 1, by = 0.2)) +
     hotteR::theme_hotteR(grids = TRUE) +
